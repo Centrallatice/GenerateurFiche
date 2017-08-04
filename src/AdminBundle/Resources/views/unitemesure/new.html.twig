@@ -3,10 +3,48 @@
 {% block title %}Ajout d'une nouvelle unité de mesure{% endblock %}
 {% block body %}
      <div class="col-xs-12">
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-            <div class="col-xs-12 text-center">
-                <input type="submit" value="Enregistrer" class="btn btn-success"/>
+        {{ form_start(form) }}
+            {% for umL in form.uniteMesureLang %}
+                <div class="row rowLang {% if loop.index>1 %}hide{% endif %}" id="{{umL.lang.vars.value}}">
+                    <div class="col-xs-5">
+                        {{ form_row(umL.nom) }}
+                    </div>
+                    <div class="col-xs-5">
+                        {{ form_row(umL.equivalence) }}
+                    </div>
+                    <div class="col-xs-2 colLang">
+                        {{ form_row(umL.lang)}}
+                    </div>
+                    <div class="col-xs-10">
+                        {{ form_row(umL.description) }}
+                    </div>
+                </div>        
+            {% endfor %}
+        <div class="row">         
+            <div class="col-xs-12"> 
+                {{ form_row(form.estReference) }}
             </div>
-        {{ form_end(form) }}
+        </div>
+        <div class="row">         
+            <div class="col-xs-12"> 
+                {{ form_row(form.groupe) }}
+            </div>
+        </div>
+        <div class="row">         
+            <div class="col-xs-12"> 
+                {{ form_row(form.valeurReference) }}
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-xs-12 text-center">
+                 <input type="submit" value="Enregistrer" class="btn btn-success"/>
+             </div>
+        </div>
+         {{ form_end(form) }}
+     </div>
+     
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/admin/uniteMesure.js') }}"></script>
 {% endblock %}

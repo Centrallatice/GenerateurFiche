@@ -24,23 +24,14 @@ class UniteMesure
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="auteur", type="string", length=255, nullable=false)
      */
     private $auteur;
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\UniteMesureLang", mappedBy="uniteMesure",cascade={"persist"}, fetch="EAGER")
      */
-    private $description;
+    private $uniteMesureLang;
 
     /**
      * @var \DateTime
@@ -50,8 +41,8 @@ class UniteMesure
     private $dateCreation;
     
     /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\Denree",mappedBy="uniteMesure")
-    */
+     * @ORM\ManyToMany(targetEntity="Denree", mappedBy="uniteMesures", fetch="EAGER")
+     */
     private $denrees;
     
     /**
@@ -60,6 +51,7 @@ class UniteMesure
      * @ORM\Column(name="groupe", type="string", length=255, nullable=false)
      */
     private $groupe;
+    
     
     /**
      * @var bool
@@ -82,41 +74,19 @@ class UniteMesure
     public function __construct()
     {
         $this->setDateCreation(new \DateTime());
+        $this->denrees = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->uniteMesureLang = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return UniteMesure
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
     }
 
     /**
@@ -129,7 +99,7 @@ class UniteMesure
     public function setAuteur($auteur)
     {
         $this->auteur = $auteur;
-
+    
         return $this;
     }
 
@@ -153,7 +123,7 @@ class UniteMesure
     public function setDateCreation($dateCreation)
     {
         $this->dateCreation = $dateCreation;
-
+    
         return $this;
     }
 
@@ -165,64 +135,6 @@ class UniteMesure
     public function getDateCreation()
     {
         return $this->dateCreation;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return UniteMesure
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Add denree
-     *
-     * @param \AdminBundle\Entity\Denree $denree
-     *
-     * @return UniteMesure
-     */
-    public function addDenree(\AdminBundle\Entity\Denree $denree)
-    {
-        $this->denrees[] = $denree;
-    
-        return $this;
-    }
-
-    /**
-     * Remove denree
-     *
-     * @param \AdminBundle\Entity\Denree $denree
-     */
-    public function removeDenree(\AdminBundle\Entity\Denree $denree)
-    {
-        $this->denrees->removeElement($denree);
-    }
-
-    /**
-     * Get denrees
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDenrees()
-    {
-        return $this->denrees;
     }
 
     /**
@@ -295,5 +207,73 @@ class UniteMesure
     public function getValeurReference()
     {
         return $this->valeurReference;
+    }
+
+    /**
+     * Add uniteMesureLang
+     *
+     * @param \AdminBundle\Entity\UniteMesureLang $uniteMesureLang
+     *
+     * @return UniteMesure
+     */
+    public function addUniteMesureLang(\AdminBundle\Entity\UniteMesureLang $uniteMesureLang)
+    {
+        $this->uniteMesureLang[] = $uniteMesureLang;
+    
+        return $this;
+    }
+
+    /**
+     * Remove uniteMesureLang
+     *
+     * @param \AdminBundle\Entity\UniteMesureLang $uniteMesureLang
+     */
+    public function removeUniteMesureLang(\AdminBundle\Entity\UniteMesureLang $uniteMesureLang)
+    {
+        $this->uniteMesureLang->removeElement($uniteMesureLang);
+    }
+
+    /**
+     * Get uniteMesureLang
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUniteMesureLang()
+    {
+        return $this->uniteMesureLang;
+    }
+
+    /**
+     * Add denree
+     *
+     * @param \AdminBundle\Entity\Denree $denree
+     *
+     * @return UniteMesure
+     */
+    public function addDenree(\AdminBundle\Entity\Denree $denree)
+    {
+        $this->denrees[] = $denree;
+    
+        return $this;
+    }
+
+    /**
+     * Remove denree
+     *
+     * @param \AdminBundle\Entity\Denree $denree
+     */
+    public function removeDenree(\AdminBundle\Entity\Denree $denree)
+    {
+        $this->denrees->removeElement($denree);
+    }
+
+    /**
+     * Get denrees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDenrees()
+    {
+        return $this->denrees;
     }
 }

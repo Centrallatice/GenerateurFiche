@@ -30,7 +30,7 @@ class UniteMesureController extends Controller
         $ref=array();
         foreach($uniteMesures as $um):
             if($um->getEstReference()):
-                $ref[$um->getGroupe()]=$um->getNom();
+                $ref[$um->getGroupe()]=$um->getUniteMesureLang()[0]->getNom();
             endif;
         endforeach;
         return $this->render('AdminBundle:unitemesure:index.html.twig', array(
@@ -47,14 +47,22 @@ class UniteMesureController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $uniteMesure = new Unitemesure();
         $user = $this->getUser();
         $uniteMesure->setAuteur($user->getFirstname()." ".$user->getLastname());
+        $Langues = $em->getRepository('AdminBundle:Lang')->findAll();
+        foreach($Langues as $L):
+            $uniteMesureLang = new \AdminBundle\Entity\UniteMesureLang();
+            $uniteMesureLang->setLang($L);
+            $uniteMesure->addUniteMesureLang($uniteMesureLang);
+        endforeach;
+        
         $form = $this->createForm('AdminBundle\Form\UniteMesureType', $uniteMesure);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             if($uniteMesure->getEstReference()):
                 $ums = $em->getRepository('AdminBundle:UniteMesure')->findBy(array("estReference"=>"1","groupe"=>$uniteMesure->getGroupe()));
                 if($ums!==null):
@@ -64,15 +72,21 @@ class UniteMesureController extends Controller
                         $em->flush();
                     endforeach;
                 endif;
+                $uniteMesure->setEstReference(true);
             endif;
+            
             $L = new Logs();
             $L->setAuteur($user->getFirstname()." ".$user->getLastname());
             $L->setEntity("UniteMesure");
             $L->setTypeAction("Creation");
-            $L->setIdEntityText($uniteMesure->getNom());
-            $uniteMesure->setEstReference(true);
-            $em->persist($uniteMesure);
-            $em->flush();
+            $langues = $uniteMesure->getUniteMesureLang();
+            foreach($langues as $l):
+                $l->setUniteMesure($uniteMesure);
+                if($l->getLang()->getNom()=="fr"):
+                    $L->setIdEntityText($l->getNom());
+                endif;
+            endforeach;
+            
             $L->setIdEntity($uniteMesure->getId());
             $em->persist($L);
             $em->flush();
@@ -81,6 +95,7 @@ class UniteMesureController extends Controller
 
         return $this->render('AdminBundle:unitemesure:new.html.twig', array(
             'uniteMesure' => $uniteMesure,
+            'langues' => $Langues,
             'form' => $form->createView(),
         ));
     }
@@ -95,7 +110,6 @@ class UniteMesureController extends Controller
      */
     public function editAction(Request $request, UniteMesure $uniteMesure)
     {
-        $deleteForm = $this->createDeleteForm($uniteMesure);
         $editForm = $this->createForm('AdminBundle\Form\UniteMesureType', $uniteMesure);
         $editForm->handleRequest($request);
 
@@ -117,7 +131,12 @@ class UniteMesureController extends Controller
             $L->setAuteur($user->getFirstname()." ".$user->getLastname());
             $L->setEntity("UniteMesure");
             $L->setTypeAction("Modification");
-            $L->setIdEntityText($uniteMesure->getNom());
+            $langues = $uniteMesure->getUniteMesureLang();
+            foreach($langues as $l):
+                if($l->getLang()->getNom()=="fr"):
+                    $L->setIdEntityText($l->getNom());
+                endif;
+            endforeach;
             $L->setIdEntity($uniteMesure->getId());
             $em->persist($L);
             $em->flush();
@@ -126,8 +145,7 @@ class UniteMesureController extends Controller
 
         return $this->render('AdminBundle:unitemesure:edit.html.twig', array(
             'uniteMesure' => $uniteMesure,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form' => $editForm->createView()
         ));
     }
 
@@ -163,6 +181,32 @@ class UniteMesureController extends Controller
                 $em->flush();
             endif;
             return new JsonResponse(array("success"=>true));
+        } catch(\Doctrine\ORM\ORMException $e){
+            return new JsonResponse(array("success"=>false,"message"=>$e->getMessage()));
+        } catch(\Exception $e){
+            return new JsonResponse(array("success"=>false,"message"=>$e->getMessage()));
+        }
+    }
+    
+    /**
+     * get uniteMesure by Lang and Group.
+     *
+     * @Route("/getByLangGroup", name="unitemesure_getbylang")
+     */
+    public function getByLangAction(Request $request)
+    {
+        try{            
+            $datas = $request->request->all();
+            $em = $this->getDoctrine()->getManager();
+            $uniteMesures = $em->getRepository(UniteMesure::class)->findBy(array(
+                "langue"=>$datas['l'],
+                "groupe"=>$datas['g']
+            ));
+            $arrayMesures=array();
+            foreach($uniteMesures as $arm):
+                array_push($arrayMesures,array("id"=>$arm->getId(),"nom"=>$arm->getNom()." - ".$arm->getDescription()));
+            endforeach;
+            return new JsonResponse(array("datas"=>$arrayMesures));
         } catch(\Doctrine\ORM\ORMException $e){
             return new JsonResponse(array("success"=>false,"message"=>$e->getMessage()));
         } catch(\Exception $e){

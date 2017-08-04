@@ -1,11 +1,52 @@
 {% extends "::admin.html.twig" %}
-{% block breadcrumb %}<li><a href="{{ path('unitemesure_index') }}">Unité de mesure</a></li><li class="active">Modification de {{uniteMesure.nom}}</li>{% endblock %}
-{% block title %} Modification de {{uniteMesure.nom}} {% endblock %}
+{% block breadcrumb %}<li><a href="{{ path('unitemesure_index') }}">Unité de mesure</a></li><li class="active">Modification de {{uniteMesure.uniteMesureLang.0.nom}}</li>{% endblock %}
+{% block title %} Modification de {{uniteMesure.uniteMesureLang.0.nom}} {% endblock %}
 {% block body %}
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <div class="col-xs-12 center-align">
-            <input type="submit" value="Enregistrer" class="btn btn-success"/>
+    <div class="col-xs-12">
+        {{ form_start(form) }}
+            {% for umL in form.uniteMesureLang %}
+                <div class="row rowLang {% if loop.index>1 %}hide{% endif %}" id="{{umL.lang.vars.value}}">
+                    <div class="col-xs-7">
+                        {{ form_row(umL.nom) }}
+                    </div>
+                    <div class="col-xs-3">
+                        {{ form_label(umL.equivalence) }}
+                        <div class="input-group">
+                            <span class="input-group-addon" id="add-on-{{umL.lang.vars.value}}-1"> 1{% if loop.index==1 %}{{uniteMesure.uniteMesureLang.0.nom}}{% else %}{{uniteMesure.uniteMesureLang.1.nom}}{% endif %} = </span>{{ form_widget(umL.equivalence) }} <span class="input-group-addon" id="add-on-{{umL.lang.vars.value}}-2">{% if loop.index==1 %}{{uniteMesure.uniteMesureLang.1.nom}}{% else %}{{uniteMesure.uniteMesureLang.0.nom}}{% endif %}</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 colLang">
+                        {{ form_row(umL.lang)}}
+                    </div>
+                    <div class="col-xs-10">
+                        {{ form_row(umL.description) }}
+                    </div>
+                </div>        
+            {% endfor %}
+        <div class="row">         
+            <div class="col-xs-12"> 
+                {{ form_row(form.estReference) }}
+            </div>
         </div>
-    {{ form_end(edit_form) }}
+        <div class="row">         
+            <div class="col-xs-12"> 
+                {{ form_row(form.groupe) }}
+            </div>
+        </div>
+        <div class="row">         
+            <div class="col-xs-12"> 
+                {{ form_row(form.valeurReference) }}
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-xs-12 text-center">
+                 <input type="submit" value="Enregistrer" class="btn btn-success"/>
+             </div>
+        </div>
+         {{ form_end(form) }}
+     </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/admin/uniteMesure.js') }}"></script>
 {% endblock %}

@@ -29,10 +29,11 @@ class Denree
     private $nom;
 
    /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\UniteMesure", inversedBy="denrees")
-     * @ORM\JoinColumn(name="uniteMesure", referencedColumnName="id",nullable=true)
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="UniteMesure", inversedBy="denrees")
+     * @ORM\JoinTable(name="denree_mesure")
      */
-    private $uniteMesure;
+    private $uniteMesures;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\CategorieDenree", inversedBy="denrees")
@@ -86,10 +87,12 @@ class Denree
         $this->setDateCreation(new \DateTime());
     }
     
+
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -106,7 +109,7 @@ class Denree
     public function setNom($nom)
     {
         $this->nom = $nom;
-
+    
         return $this;
     }
 
@@ -121,54 +124,28 @@ class Denree
     }
 
     /**
-     * Set uniteMesure
+     * Set code
      *
-     * @param string $uniteMesure
-     *
-     * @return Denree
-     */
-    public function setUniteMesure($uniteMesure)
-    {
-        $this->uniteMesure = $uniteMesure;
-   
-        return $this;
-    }
-
-    /**
-     * Get uniteMesure
-     *
-     * @return string
-     */
-    public function getUniteMesure()
-    {
-        return $this->uniteMesure;
-    }
-
-    /**
-     * Set categorieDenree
-     *
-     * @param string $categorieDenree
+     * @param string $code
      *
      * @return Denree
      */
-    public function setCategorieDenree($categorieDenree)
+    public function setCode($code)
     {
-        $this->categorieDenree = $categorieDenree;
-
-        return $this;
-    }
-
-    /**
-     * Get categorieDenree
-     *
-     * @return string
-     */
-    public function getCategorieDenree()
-    {
-        return $this->categorieDenree;
-    }
-
+        $this->code = $code;
     
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 
     /**
      * Set pUHT
@@ -180,7 +157,7 @@ class Denree
     public function setPUHT($pUHT)
     {
         $this->pUHT = $pUHT;
-
+    
         return $this;
     }
 
@@ -204,7 +181,7 @@ class Denree
     public function setAuteur($auteur)
     {
         $this->auteur = $auteur;
-
+    
         return $this;
     }
 
@@ -216,30 +193,6 @@ class Denree
     public function getAuteur()
     {
         return $this->auteur;
-    }
-
-    /**
-     * Set dateCreation
-     *
-     * @param \DateTime $dateCreation
-     *
-     * @return Denree
-     */
-    public function setDateCreation($dateCreation)
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
-    }
-
-    /**
-     * Get dateCreation
-     *
-     * @return \DateTime
-     */
-    public function getDateCreation()
-    {
-        return $this->dateCreation;
     }
 
     /**
@@ -265,7 +218,88 @@ class Denree
     {
         return $this->codeBarre;
     }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Denree
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
     
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Add uniteMesure
+     *
+     * @param \AdminBundle\Entity\UniteMesure $uniteMesure
+     *
+     * @return Denree
+     */
+    public function addUniteMesure(\AdminBundle\Entity\UniteMesure $uniteMesure)
+    {
+        $this->uniteMesures[] = $uniteMesure;
+    
+        return $this;
+    }
+
+    /**
+     * Remove uniteMesure
+     *
+     * @param \AdminBundle\Entity\UniteMesure $uniteMesure
+     */
+    public function removeUniteMesure(\AdminBundle\Entity\UniteMesure $uniteMesure)
+    {
+        $this->uniteMesures->removeElement($uniteMesure);
+    }
+
+    /**
+     * Get uniteMesures
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUniteMesures()
+    {
+        return $this->uniteMesures;
+    }
+
+    /**
+     * Set categorieDenree
+     *
+     * @param \AdminBundle\Entity\CategorieDenree $categorieDenree
+     *
+     * @return Denree
+     */
+    public function setCategorieDenree(\AdminBundle\Entity\CategorieDenree $categorieDenree = null)
+    {
+        $this->categorieDenree = $categorieDenree;
+    
+        return $this;
+    }
+
+    /**
+     * Get categorieDenree
+     *
+     * @return \AdminBundle\Entity\CategorieDenree
+     */
+    public function getCategorieDenree()
+    {
+        return $this->categorieDenree;
+    }
 
     /**
      * Add etapeDenree
@@ -299,29 +333,5 @@ class Denree
     public function getEtapeDenrees()
     {
         return $this->etapeDenrees;
-    }
-
-    /**
-     * Set code
-     *
-     * @param string $code
-     *
-     * @return Denree
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
     }
 }

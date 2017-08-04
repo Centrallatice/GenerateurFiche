@@ -4,11 +4,12 @@ namespace AdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use AdminBundle\Form\UniteMesureLangType;
 class UniteMesureType extends AbstractType
 {
     /**
@@ -16,17 +17,21 @@ class UniteMesureType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
         $builder
-                ->add('nom',TextType::class,array("label"=>"Abréviation"))
-                ->add('description')
                 ->add('estReference',ChoiceType::class,array(
-                    "label"=>"Est la valeur de référence ? (Attention une seule unité par groupe peut-être unité de réfèrence - mg pour les masses par exemples)",
+                    "label"=>"Est la valeur de référence ? (Attention une seule unité par groupe et par langue peut-être unité de réfèrence - mg pour les masses fr par exemples)",
                     "multiple"=>false,
                     "expanded"=>true,
                     "choices"=>array(
                         "Oui"=>true,
                         "Non"=>false
                     )
+                ))
+                ->add('uniteMesureLang',CollectionType::class,array(
+                    'label' => false,
+                    'entry_type' => UniteMesureLangType::class,
+                    'allow_add' => false
                 ))
                 ->add('groupe', ChoiceType::class,array(
                     "label"=>"Groupe de mesure",
