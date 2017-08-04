@@ -1,14 +1,35 @@
 {{ form_start(form) }}
-    {{ form_label(form.titre) }}
-    {{ form_widget(form.titre) }}
-    {{ form_label(form.codeCouleur) }}
-    {{ form_widget(form.codeCouleur, { 'attr': {'class': 'jscolor'} }) }}
-    {{ form_label(form.dureeType) }}
-    {{ form_widget(form.dureeType) }}
-    {{ form_label(form.dureeUnite) }}
-    {{ form_widget(form.dureeUnite) }}
-    {{ form_label(form.dureeValeur) }}
-    {{ form_widget(form.dureeValeur) }}
+    <label class="control-label required" for="catEtapeProduit">Choisissez la catégorie d'étape type</label>
+    <select id="catEtapeProduit" class="form-control">
+        {% for c in categorieEtapeTypes %}
+            <option value="{{c.id}}">{{c.nom}}</option>
+        {% endfor %}
+    </select>
+    
+    <label class="control-label required" for="etapeProduit">Choisissez l'étape type</label>
+    <select id="etapeProduit" class="form-control">
+        <option value="-1">--</option>
+        {% for e in etapesTypes %}
+            <option value="{{e.id}}">{{e.etapesTypesLang.0.titre}}</option>
+        {% endfor %}
+    </select>
+    {{dump(etapesTypes)}}
+    
+    
+    <div class="hide">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre) }}
+        {{ form_label(form.codeCouleur) }}
+        {{ form_widget(form.codeCouleur, { 'attr': {'class': 'jscolor'} }) }}
+        {{ form_label(form.dureeType) }}
+        {{ form_widget(form.dureeType) }}
+        {{ form_label(form.dureeUnite) }}
+        {{ form_widget(form.dureeUnite) }}
+        {{ form_label(form.dureeValeur) }}
+        {{ form_widget(form.dureeValeur) }}
+    </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
         <button type="button" id="btnValideAddEtape" class="btn btn-success">Enregister</button>

@@ -29,7 +29,7 @@
                         <td>{{ unitemesure.denrees|length }}</td>
                         <td>{{ unitemesure.groupe|capitalize}}</td>
                         <td>1 {{ unitemesure.unitemesurelang.0.nom }} = {{ unitemesure.valeurReference }} {{ ref[unitemesure.groupe]}}</td>
-                        <td>1 {{ unitemesure.unitemesurelang.0.nom }} = {{ unitemesure.unitemesurelang.1.equivalence }}{{ unitemesure.unitemesurelang.1.nom }} </td>
+                        <td>1 {{ unitemesure.unitemesurelang.1.nom }} = {{ unitemesure.unitemesurelang.1.equivalence }}{{ unitemesure.unitemesurelang.0.nom }} </td>
                         <td>{% if unitemesure.dateCreation %}{{ unitemesure.dateCreation|date('d/m/Y') }}{% endif %}</td>
                         <td>
                             <ul class="list-inline">

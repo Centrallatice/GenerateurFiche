@@ -42,10 +42,7 @@ class Lang
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\UniteMesureLang", mappedBy="lang",cascade={"persist"}, fetch="EAGER")
-     */
-    private $uniteMesureLang;
+   
     /**
      * Get id
      *
@@ -139,37 +136,5 @@ class Lang
         $this->uniteMesureLang = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add uniteMesureLang
-     *
-     * @param \AdminBundle\Entity\UniteMesureLang $uniteMesureLang
-     *
-     * @return Lang
-     */
-    public function addUniteMesureLang(\AdminBundle\Entity\UniteMesureLang $uniteMesureLang)
-    {
-        $this->uniteMesureLang[] = $uniteMesureLang;
     
-        return $this;
-    }
-
-    /**
-     * Remove uniteMesureLang
-     *
-     * @param \AdminBundle\Entity\UniteMesureLang $uniteMesureLang
-     */
-    public function removeUniteMesureLang(\AdminBundle\Entity\UniteMesureLang $uniteMesureLang)
-    {
-        $this->uniteMesureLang->removeElement($uniteMesureLang);
-    }
-
-    /**
-     * Get uniteMesureLang
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUniteMesureLang()
-    {
-        return $this->uniteMesureLang;
-    }
 }

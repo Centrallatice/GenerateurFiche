@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use KMS\FroalaEditorBundle\Form\Type\FroalaEditorType;
 class EtapeProduitType extends AbstractType
 {
     /**
@@ -19,6 +19,7 @@ class EtapeProduitType extends AbstractType
         $builder
                 ->add('titre')
                 ->add('codeCouleur')
+                ->add('description',FroalaEditorType::class)
                 ->add('dureeType',ChoiceType::class,array(
                     "label"=>"Méthode de calcul de la durée de fabrication",
                     "choices"=>array(

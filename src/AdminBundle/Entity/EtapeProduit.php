@@ -64,10 +64,7 @@ class EtapeProduit
     private $codeCouleur;
 
     
-    /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\TechniquesEtape",mappedBy="etapes",cascade={"remove"})
-    */
-    private $techniques;
+    
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\EtapeDenree",mappedBy="etape", cascade={"remove"})
@@ -257,40 +254,11 @@ class EtapeProduit
     }
 
     /**
-     * Add technique
+     * @var string
      *
-     * @param \AdminBundle\Entity\TechniquesEtape $technique
-     *
-     * @return EtapeProduit
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
-    public function addTechnique(\AdminBundle\Entity\TechniquesEtape $technique)
-    {
-        $this->techniques[] = $technique;
-    
-        return $this;
-    }
-
-    /**
-     * Remove technique
-     *
-     * @param \AdminBundle\Entity\TechniquesEtape $technique
-     */
-    public function removeTechnique(\AdminBundle\Entity\TechniquesEtape $technique)
-    {
-        $this->techniques->removeElement($technique);
-    }
-
-    /**
-     * Get techniques
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTechniques()
-    {
-        return $this->techniques;
-    }
-
-    
+    private $description;
 
     /**
      * Add etapeDenree
@@ -396,5 +364,29 @@ class EtapeProduit
     public function getDureeUnite()
     {
         return $this->dureeUnite;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return EtapeProduit
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

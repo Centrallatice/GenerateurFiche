@@ -197,4 +197,28 @@ class Logs
     {
         return $this->idEntityText;
     }
+
+    /**
+     * Set idEntity
+     *
+     * @param integer $idEntity
+     *
+     * @return Logs
+     */
+    public function setIdEntity($idEntity)
+    {
+        $this->idEntity = $idEntity;
+    
+        return $this;
+    }
+
+    /**
+     * Get idEntity
+     *
+     * @return integer
+     */
+    public function getIdEntity()
+    {
+        return $this->idEntity;
+    }
 }

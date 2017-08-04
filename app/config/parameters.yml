@@ -10,15 +10,3 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: 017669bef87df4983ed98efefb8fa4a4bee5b89b
-   
-#parameters:
-#    database_host: artisanssmusr.mysql.db
-#    database_port: null
-#    database_name: artisanssmusr
-#    database_user: artisanssmusr
-#    database_password: Stewitap59
-#    mailer_transport: smtp
-#    mailer_host: 127.0.0.1
-#    mailer_user: null
-#    mailer_password: null
-#    secret: 017669bef87df4983ed98efefb8fa4a4bee5b89b

@@ -1,0 +1,38 @@
+{% extends "::admin.html.twig" %}
+{% block title %}Liste des étapes type{% endblock %}
+{% block breadcrumb %}<li><a href="{{ path('etapetype_index') }}">Étapes types</a></li><li class="active">Gestion des étapes types</li>{% endblock %}
+{% block body %}
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="datatable table table-striped">
+                <thead>
+                    <tr>
+                        <th>Categorie</th>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for etapeType in etapeTypes %}
+                    <tr>
+                        <td><a href="{{ path('etapetype_show', { 'id': etapeType.id }) }}">{{ etapeType.id }}</a></td>
+                        <td>
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="{{ path('etapetype_edit', { 'id': etapeType.id }) }}" role="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                                </li>
+                                <li>
+                                    <a data-href="{{ path('etapetype_delete', { 'id': etapeType.id }) }}" attr-id="{{etapeType.id}}" role="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="fixed-action-btn" data-toggle="tooltip" data-placement="left" title="Ajouter une nouvelle étape type">
+    <a href="{{ path('etapetype_new') }}" role="button" class="btn btn-success pull-right pulse" ><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+{% endblock %}

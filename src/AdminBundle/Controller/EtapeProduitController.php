@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AdminBundle\Entity\Produit;
 use AdminBundle\Entity\EtapeDenree;
 use AdminBundle\Entity\Logs;
+use AdminBundle\Entity\CategorieEtapeType;
+use AdminBundle\Entity\EtapeType;
+
 /**
  * Etapeproduit controller.
  *
@@ -48,8 +51,22 @@ class EtapeProduitController extends Controller
         $etapeProduit->setAuteur($user->getFirstname()." ".$user->getLastname());
         $form = $this->createForm('AdminBundle\Form\EtapeProduitType', $etapeProduit);
         
+        $em = $this->getDoctrine()->getManager();
+           
+            
+        $categorieEtapeTypes = $em->getRepository(CategorieEtapeType::class)->findAll();
+        if(count($categorieEtapeTypes)>0):
+            $etapesTypes = $em->getRepository(EtapeType::class)->findBy(array(
+                "categorieEtapeType"=>reset($categorieEtapeTypes)
+            )); 
+        else:
+            $etapesTypes=array();
+        endif;
+        
         return new JsonResponse($this->renderView('AdminBundle:etapeproduit:new.html.twig', array(
             'etapeProduit' => $etapeProduit,
+            'categorieEtapeTypes' => $categorieEtapeTypes,
+            'etapesTypes' => $etapesTypes,
             'form' => $form->createView(),
         )));
     }

@@ -84,13 +84,10 @@ kms_froala_editor:
     toolbarInline: false
     tableColors: [ "#FFFFFF", "#FF0000" ]
     includeJQuery: true
-    includeCodeMirror: true
+    includeCodeMirror: false
     includeFontAwesome: true
-    heightMin: 150
-    includeJS: true
-    includeCSS: true
-    pluginsDisabled: [ "mediaManager", "video", "fullscreen" ] 
-  
+    heightMin: 250
+   
 vich_uploader:
     db_driver: orm
     mappings:

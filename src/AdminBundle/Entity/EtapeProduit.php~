@@ -64,10 +64,7 @@ class EtapeProduit
     private $codeCouleur;
 
     
-    /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\TechniquesEtape",mappedBy="etapes",cascade={"remove"})
-    */
-    private $techniques;
+    
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\EtapeDenree",mappedBy="etape", cascade={"remove"})
@@ -257,40 +254,11 @@ class EtapeProduit
     }
 
     /**
-     * Add technique
+     * @var string
      *
-     * @param \AdminBundle\Entity\TechniquesEtape $technique
-     *
-     * @return EtapeProduit
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
-    public function addTechnique(\AdminBundle\Entity\TechniquesEtape $technique)
-    {
-        $this->techniques[] = $technique;
-    
-        return $this;
-    }
-
-    /**
-     * Remove technique
-     *
-     * @param \AdminBundle\Entity\TechniquesEtape $technique
-     */
-    public function removeTechnique(\AdminBundle\Entity\TechniquesEtape $technique)
-    {
-        $this->techniques->removeElement($technique);
-    }
-
-    /**
-     * Get techniques
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTechniques()
-    {
-        return $this->techniques;
-    }
-
-    
+    private $description;
 
     /**
      * Add etapeDenree
@@ -324,5 +292,77 @@ class EtapeProduit
     public function getEtapeDenrees()
     {
         return $this->etapeDenrees;
+    }
+
+    /**
+     * Set dureeType
+     *
+     * @param string $dureeType
+     *
+     * @return EtapeProduit
+     */
+    public function setDureeType($dureeType)
+    {
+        $this->dureeType = $dureeType;
+    
+        return $this;
+    }
+
+    /**
+     * Get dureeType
+     *
+     * @return string
+     */
+    public function getDureeType()
+    {
+        return $this->dureeType;
+    }
+
+    /**
+     * Set dureeValeur
+     *
+     * @param string $dureeValeur
+     *
+     * @return EtapeProduit
+     */
+    public function setDureeValeur($dureeValeur)
+    {
+        $this->dureeValeur = $dureeValeur;
+    
+        return $this;
+    }
+
+    /**
+     * Get dureeValeur
+     *
+     * @return string
+     */
+    public function getDureeValeur()
+    {
+        return $this->dureeValeur;
+    }
+
+    /**
+     * Set dureeUnite
+     *
+     * @param string $dureeUnite
+     *
+     * @return EtapeProduit
+     */
+    public function setDureeUnite($dureeUnite)
+    {
+        $this->dureeUnite = $dureeUnite;
+    
+        return $this;
+    }
+
+    /**
+     * Get dureeUnite
+     *
+     * @return string
+     */
+    public function getDureeUnite()
+    {
+        return $this->dureeUnite;
     }
 }

@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * @ORM\Table(name="gf_user")
  * @ORM\Entity
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
@@ -99,7 +100,7 @@ class User implements UserInterface
         $this->password = $password;
     }
     public function getRoles(){
-        return 'ROLE_ADMINISTRATEUR';
+        return array('ROLE_ADMINISTRATEUR');
     }
     public function getSalt()
     {
@@ -119,7 +120,7 @@ class User implements UserInterface
             $this->username,
             $this->password,
             // see section on salt below
-            // $this->salt,
+             $this->salt,
         ));
     }
 
@@ -131,8 +132,66 @@ class User implements UserInterface
             $this->username,
             $this->password,
             // see section on salt below
-            // $this->salt
+             $this->salt
         ) = unserialize($serialized);
     }
     // other methods, including security methods like getRoles()
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set firstname
+     *
+     * @param string $firstname
+     *
+     * @return User
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+    
+        return $this;
+    }
+
+    /**
+     * Get firstname
+     *
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     *
+     * @return User
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
 }

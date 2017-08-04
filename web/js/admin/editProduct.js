@@ -1,4 +1,5 @@
 $('document').ready(function(){
+   
     var url = document.location.href;
     var getDiese = url.split("#");
     if(getDiese.length>1){
@@ -94,7 +95,17 @@ $('document').ready(function(){
             dataType: 'JSON',
             success: function(ret) {
                 $("#addStep .modal-body").html(ret);
-                $('#addStep').modal();
+                var dialog = bootbox.dialog({
+                    message: $("#addStep .modal-body").html(),
+                    closeButton: false,
+                    size: 'large'
+                });
+                $('#addStep .modal-body select#catEtapeProduit').on("change",function(){
+                    getEtapeTypeByCat($(this).val());
+                 });
+                 $('#addStep .modal-body #etapeProduit').on("change",function(){
+                    getEtapeType($(this).val());
+                 });
                 $('#addStep .modal-body .jscolor').colorPicker();
                 $('#addStep #btnValideAddEtape').on("click",function(){
                     var couleur = $('#adminbundle_etapeproduit_codeCouleur').val();
@@ -529,3 +540,23 @@ function dateHMS(time) {
   return d.split(':');
 }
 
+function getEtapeTypeByCat(cat){
+    console.log("test");
+    $('#etapeProduit option[value!=-1]').remove();
+    $.ajax({
+        url:  basePageAdmin+'etapetype/getByCat',
+        type: 'POST',
+        dataType: 'JSON',
+        data:{id:cat},
+        success: function(json) {
+            if(json.success==1) {
+                
+
+            } else {
+                bootbox.alert("<div class='alert alert-danger'>Une erreur est survenue</div>");
+            }
+        }
+    });
+}
+function getEtapeType(idEtape){
+}

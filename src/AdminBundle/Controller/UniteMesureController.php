@@ -74,7 +74,7 @@ class UniteMesureController extends Controller
                 endif;
                 $uniteMesure->setEstReference(true);
             endif;
-            
+            $em->persist($uniteMesure);
             $L = new Logs();
             $L->setAuteur($user->getFirstname()." ".$user->getLastname());
             $L->setEntity("UniteMesure");
@@ -92,7 +92,6 @@ class UniteMesureController extends Controller
             $em->flush();
             return $this->redirectToRoute('unitemesure_index');
         }
-
         return $this->render('AdminBundle:unitemesure:new.html.twig', array(
             'uniteMesure' => $uniteMesure,
             'langues' => $Langues,
@@ -126,6 +125,7 @@ class UniteMesureController extends Controller
                 endif;
                 $uniteMesure->setEstReference(true);
             endif;
+            $em->persist($uniteMesure);
             $user = $this->getUser();
             $L = new Logs();
             $L->setAuteur($user->getFirstname()." ".$user->getLastname());

@@ -1,0 +1,45 @@
+{% extends "::admin.html.twig" %}
+{% block title %}Liste des catégories de produits{% endblock %}
+{% block breadcrumb %}<li><a href="{{ path('categorieetapetype_index') }}">Denrées</a></li><li class="active">Liste des catégories de denrées</li>{% endblock %}
+{% block body %}
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="datatable table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Auteur</th>
+                        <th>Créé le</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cET in categorieEtapeTypes %}
+                    <tr id="{{cET.id}}">
+                        <td>{{ cET.nom }}</td>
+                        <td>{{ cET.auteur }}</td>
+                        <td>{% if cET.dateCreation %}{{ cET.dateCreation|date('d/m/Y') }}{% endif %}</td>
+                        <td>
+                            <ul class="inline-list">
+                                <li>
+                                    <a href="{{ path('categorieetapetype_edit', { 'id': cET.id }) }}" role="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                                </li>
+                                <li>
+                                    <a attr-id="{{cET.id}}" data-href="{{ path('categorieetapetype_delete', { 'id': cET.id }) }}" role="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="fixed-action-btn" data-toggle="tooltip" data-placement="left" title="Créer une nouvelle catégorie">
+    <a href="{{ path('categorieetapetype_new') }}" role="button" class="btn btn-success pull-right pulse" ><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/admin/indexCategorieEtapeType.js') }}"></script>
+{% endblock %}

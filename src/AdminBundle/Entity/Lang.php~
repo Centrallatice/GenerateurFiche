@@ -42,10 +42,7 @@ class Lang
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\UniteMesureLang", mappedBy="lang",cascade={"persist"}, fetch="EAGER")
-     */
-    private $uniteMesureLang;
+   
     /**
      * Get id
      *
@@ -131,5 +128,13 @@ class Lang
     {
         return $this->description;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->uniteMesureLang = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    
+}

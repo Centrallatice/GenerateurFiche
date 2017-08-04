@@ -76,23 +76,9 @@ class Produit
     /**
      * @var float
      *
-     * @ORM\Column(name="coutHT", type="float", nullable=true)
-     */
-    private $coutHT;
-
-    /**
-     * @var float
-     *
      * @ORM\Column(name="coefficient", type="float", nullable=true)
      */
     private $coefficient;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="PVUHT", type="float", nullable=true)
-     */
-    private $pVUHT;
 
     /**
      * @var string
@@ -117,7 +103,8 @@ class Produit
     private $updatedAt;
     
     /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\EtapeProduit",mappedBy="produit")
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\EtapeProduit",mappedBy="produit", cascade={"remove"})
+     * @ORM\OrderBy({"ordre" = "ASC"})
     */
     private $etapes;
     
@@ -255,30 +242,7 @@ class Produit
         return $this->apportNutritionnelUnitaire;
     }
 
-    /**
-     * Set coutHT
-     *
-     * @param float $coutHT
-     *
-     * @return Produit
-     */
-    public function setCoutHT($coutHT)
-    {
-        $this->coutHT = $coutHT;
-
-        return $this;
-    }
-
-    /**
-     * Get coutHT
-     *
-     * @return float
-     */
-    public function getCoutHT()
-    {
-        return $this->coutHT;
-    }
-
+   
     /**
      * Set coefficient
      *
@@ -303,29 +267,6 @@ class Produit
         return $this->coefficient;
     }
 
-    /**
-     * Set pVUHT
-     *
-     * @param float $pVUHT
-     *
-     * @return Produit
-     */
-    public function setPVUHT($pVUHT)
-    {
-        $this->pVUHT = $pVUHT;
-
-        return $this;
-    }
-
-    /**
-     * Get pVUHT
-     *
-     * @return float
-     */
-    public function getPVUHT()
-    {
-        return $this->pVUHT;
-    }
 
     /**
      * Set dressageType
