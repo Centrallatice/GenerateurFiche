@@ -1,0 +1,73 @@
+.redme{
+   color:red; 
+}
+.nopadding{
+    padding:0 !important;
+}
+.blocCout{
+    padding-top:10px;
+    padding-left:20px;
+    padding-right:0 !important;
+}
+.blocCout .input-group{
+    margin-top:25px;
+}
+main.main{
+    padding-bottom: 150px;
+}
+.whiteme{
+    color:white;
+}
+.breadcrumb>.active {
+    color: #777;
+    font-weight: 700;
+}
+.navbar{
+    margin-bottom: 0px;
+}
+.breadcrumb{
+    padding-left:45px;
+}
+footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 100px;
+    position:fixed;
+    bottom:0;
+    width: 100%;
+    color: #99979c;
+    text-align: center;
+    background-color: #2a2730;
+}
+.center-align{
+    text-align: center;
+}
+.inline-list{
+    list-style-type: none;
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+.inline-list li,.inline-list li form{
+    display: inline;
+}
+div.table-responsive>div.dataTables_wrapper>div.row.rowtools{
+    margin-top:15px;
+    margin-bottom:15px;
+}
+.fixed-action-btn {
+    position: fixed;
+    right: 50px;
+    bottom: 100px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 998;
+}
+.fixed-action-btn .btn{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+    font-size: 18px;
+    border-radius: 27px;
+}

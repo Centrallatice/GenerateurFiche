@@ -1,0 +1,12 @@
+{% extends "::admin.html.twig" %}
+{% block breadcrumb %}<li><a href="{{ path('unitemesure_index') }}">Unité de mesure</a></li><li class="active">Ajout d'une nouvelle unité de mesure</li>{% endblock %}
+{% block title %}Ajout d'une nouvelle unité de mesure{% endblock %}
+{% block body %}
+     <div class="col-xs-12">
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+            <div class="col-xs-12 text-center">
+                <input type="submit" value="Enregistrer" class="btn btn-success"/>
+            </div>
+        {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,110 @@
+{% if produit.etapes|length==0 %}
+    <br />
+    <div class="alert alert-info">Vous n'avez pas encore créé d'étape</div>
+    <div class="nostep addstep" data-href="{{ path('etape_new') }}">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span><br />
+        Ajouter une étape
+    </div>
+{% else %}
+    <div class="col-xs-7 etapes">  
+        <h4>Étapes et techniques</h4> 
+        {% for e in produit.etapes %}
+            <div class="etape" id="etape-{{e.id}}">
+                <div class="main-left">
+                    <h4>{{e.ordre}} - <span>{{e.titre}}</span></h4>
+                    {% for t in e.techniques  %}
+                        <div class="technique" id="tech-{{t.id}}">
+                            <h5>
+                                {% if t.description|length > 0 %}
+                                    <a class="collapsed {% if t.lienExterne!='' %} movieLink {% endif %}" {% if t.lienExterne!='' %} data-attr-movie="{{t.lienExterne}}" {% endif %} role="button" data-toggle="collapse" href="#collapse-{{t.id}}" aria-expanded="false" aria-controls="collapse-{{t.id}}" >
+                                        {{t.titre}} 
+                                        <span class="collapsedmoreless"></span>
+                                        {% if t.lienExterne!='' %}
+                                            <span class="glyphicon glyphicon-facetime-video"></span>
+                                        {% endif %}    
+                                    </a>
+                                {% else %}
+                                    <a class="{% if t.lienExterne!='' %} movieLink {% endif %}" {% if t.lienExterne!='' %} data-attr-movie="{{t.lienExterne}}" {% endif %} role="button">
+                                        {{t.titre}} 
+                                        {% if t.lienExterne!='' %}
+                                            <span class="glyphicon glyphicon-facetime-video"></span>
+                                        {% endif %}    
+                                    </a>
+                                {% endif %}
+                            </h5>
+                            {% if t.description|length > 0 %}<div id="collapse-{{t.id}}" class="collapse">{{t.description|raw}} </div>{% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="notech addtech" data-attr-id="{{e.id}}" data-href="{{ path('technique_new') }}">
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span><br />
+                        Ajouter une technique
+                    </div>
+                </div>
+                <div class="main-right reorder">
+                    <button data-attr-id="{{ e.id }}" class="btn btn-default orderUp order" {% if e.ordre ==1 %}disabled="disabled"{% endif %}><span class="glyphicon glyphicon-menu-up"></span></button>          
+                    <button data-attr-id="{{ e.id }}" class="btn btn-default orderDown order" {% if e.ordre == produit.etapes|length %}disabled="disabled"{% endif %}><span class="glyphicon glyphicon-menu-down"></span></button>          
+                </div>
+            </div>
+        {% endfor %}
+        <div class="nostep addstep col-xs-12" data-href="{{ path('etape_new') }}">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span><br />
+            Ajouter une étape
+        </div>
+    </div>
+    <div class="col-xs-5 denrees"> 
+        <h4>Denrées</h4>
+        <div class="denree">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Nature</th>
+                        <th>Unité</th>
+                        <th class="center-align" id="refColspan" colspan="{{produit.etapes|length}}">Étape</th>
+                        <th class="center-align" colspan="3">Valorisation</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        {% for e in produit.etapes %}
+                            <th class="center-align theadEtape" id="etapeDenree-{{e.id}}">{{e.ordre}}</th>
+                        {% endfor %}
+                        <th class="center-align" >Total</th>
+                        <th class="center-align" ><abbr title="Prix Unitaire Hors Taxe">PUHT</abbr></th>
+                        <th class="center-align" ><abbr title="Prix Total Hors Taxe">PTHT</abbr></th>
+                    </tr>
+                </thead>        
+                <tbody>
+                </tbody>    
+                <tfoot>
+                    <tr>
+                        <td colspan="10"><a id="addDenree" role="button" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Ajouter une denrée</a></td>
+                    </tr>
+                </tfoot>                  
+                <tfoot id="total">
+                    {% set colspan = 2+produit.etapes|length %}
+                    <tr>
+                        <td colspan="{{colspan}}" rowspan="3" class="totalbas right-align valigncenter">Totaux</td>
+                        <td>Total denrées</td>
+                        <td colspan="2" id="totDenree" class="valigncenter strongme"></td>
+                    </tr>
+                    <tr>
+                        <td>Assais. 2%</td>
+                        <td colspan="2" id="assaiso" class="valigncenter strongme"></td>
+                    </tr>
+                    <tr>
+                        <td>Coût matières total</td>
+                        <td colspan="2" id="totMatiere" class="valigncenter strongme"></td>
+                    </tr>
+                </tfoot>        
+            </table>        
+        </div>
+    </div>
+{% endif %}
+    
+<div class="fixed-action-btn" data-toggle="tooltip" data-placement="left" title="Ajouter une nouvelle étape">
+    <a data-href="{{ path('etape_new') }}" role="button" class="btn btn-success pull-right pulse addstep" ><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+
+{% include('AdminBundle:produit:parts/modals_edit.html.twig') %}
+
+

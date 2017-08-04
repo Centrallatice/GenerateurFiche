@@ -1,0 +1,42 @@
+{% extends "::admin.html.twig" %}
+{% block breadcrumb %}<li><a href="{{ path('produit_index') }}">Produits</a></li><li class="active">Modification de {{produit.titre}}</li>{% endblock %}
+{% block title %} Modification de {{produit.titre}} {% endblock %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/product_edit.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/jqColor.css') }}">
+{% endblock %}
+{% block body %}
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" {% if action == null or action == 'main' %}class="active"{% endif %}><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Titre / Description et Prix</a></li>
+        <li role="presentation" {% if action == 'etape' %}class="active"{% endif %}><a href="#etape" aria-controls="etape" role="tab" data-toggle="tab">Étapes</a></li>
+{#        <li role="presentation" {% if action == 'prev' %}class="active"{% endif %}><a href="#prev" aria-controls="prev" role="tab" data-toggle="tab">Prévisualiser</a></li>#}
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade {% if action == null or action == 'main' %}in active{% endif %}" id="main">
+            <div class="col-xs-12">
+                {% include('AdminBundle:produit:tabs/main.html.twig') %}
+            </div>
+        </div>
+        <div role="tabpanel"  class="tab-pane fade {% if action == 'etape' %}in active{% endif %}" id="etape">
+            <div class="col-xs-12">
+                {% include('AdminBundle:produit:tabs/step.html.twig') %}
+            </div>
+        </div>
+        {#<div role="tabpanel"  class="tab-pane fade {% if action == 'prev' %}in active{% endif %}" id="prev">
+            <div class="col-xs-12">
+                {% include('AdminBundle:produit:tabs/prev.html.twig') %}
+            </div>
+        </div>#}
+    </div>
+    <input type="hidden" name="productIdRef" id="productIdRef" value="{{produit.id}}">
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/froala_editor.min.js') }}"></script>
+    <script src="{{ asset('js/admin/colorPicker/colorPicker.data.js') }}"></script>
+    <script src="{{ asset('js/admin/colorPicker/colorPicker.js') }}"></script>
+    <script src="{{ asset('js/admin/colorPicker/colors.js') }}"></script>
+    <script src="{{ asset('js/admin/colorPicker/jqColor.js') }}"></script>
+    <script src="{{ asset('js/admin/editProduct.js') }}"></script>
+{% endblock %}

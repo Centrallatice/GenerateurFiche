@@ -1,0 +1,50 @@
+{% extends "::admin.html.twig" %}
+{% block title %} Liste des utilisateurs {% endblock %}
+{% block body %}
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="datatable table table-striped">
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Email</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr id='{{user.id}}'>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>
+                            <ul class="list-inline">
+                                <li>
+                                    <a role="button" href="{{ path('user_show', { 'id': user.id }) }}"  role="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Afficher"><span class="glyphicon glyphicon-search"></span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user_edit', { 'id': user.id }) }}" role="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                                </li>
+                                <li>
+                                    <a data-href="{{ path('user_delete', { 'id': user.id }) }}" attr-id="{{user.id}}" role="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="fixed-action-btn" data-toggle="tooltip" data-placement="left" title="Ajouter un nouvel utilisateur">
+    <a href="{{ path('user_new') }}" role="button" class="btn btn-success pull-right pulse" ><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/admin/deleteUser.js') }}"></script>
+{% endblock %}
+

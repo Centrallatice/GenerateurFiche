@@ -1,0 +1,144 @@
+.nostep,.notech{
+    border:3px dotted rgba(0,0,0,0.2);
+    padding:25px 10px;
+    width:100%;
+    font-size:3em;
+    text-align: center;
+    margin-top:15px;
+    color:rgba(0,0,0,0.2);
+}
+.notech{
+    padding:5px 10px;
+    font-size:2em;
+}
+.nostep:hover,.notech:hover{
+    cursor:pointer;
+    border:3px dotted rgba(0,0,0,0.7);
+    color:rgba(0,0,0,0.7);
+}
+.etapes,.denrees{
+    margin-top:15px;
+}
+.denrees table tr{
+    cursor:pointer;
+}
+.etape,.denree{
+    position: relative;
+    display: block;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    float:left;
+    width: 100%;
+}
+.etape:last-child {
+    margin-bottom: 0;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.etape:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.main-left{
+    padding: 10px 15px;
+    width:95%;
+    float:left;
+}
+.main-right{
+    padding: 45px 10px 10px 10px;
+    width:5%;
+    position: relative;
+    float:left;
+    text-align: center;
+}
+.technique{
+    padding:0 10px 5px 25px;
+}
+.technique h5 > a.collapsed .collapsedmoreless{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.technique h5 > a.collapsed .collapsedmoreless:before {
+    content: "\002b";
+}
+.technique h5 > a .collapsedmoreless:before {
+    content: "\2212";
+}
+abbr[title], acronym[title], abbr[data-original-title] {
+    border-bottom: .1em dotted #c8c8c8;
+    cursor: help;
+}
+.technique h5{
+    padding:0;
+    margin:0;
+}
+.technique h5 a{
+    color:#000;
+}
+.technique h5 a.movieLink{
+    color:#A60033;
+}
+.technique .collapse{
+    font-size: 0.85em;
+    margin-left: 0.5em;
+    border-left: 1px dotted #879DC1;
+    padding:10px 0 0 5px;
+}
+.glyphicon-edit{
+    color:#23527c;
+}
+.actionListe{
+    position:absolute;
+    box-shadow:3px 6px 9px rgba(0,0,0,.75)
+}
+.actionListe li a{
+    cursor:pointer;
+}
+.denree table tfoot tr td{
+    border:2px dotted rgba(0,0,0,0.2);
+    color:rgba(0,0,0,0.7);
+    text-align: center;
+}
+.denree table tbody tr td{
+    border-left: 1px solid #e0e0e0;
+    border-right: none;
+    border-top:  none;
+    border-bottom:  none;
+}
+.denree table tbody tr{
+    border:none;
+}
+.denree table tbody tr:first-child,.denree table tbody tr.headCategorieDenree{
+    border-top: 1px dotted #bbb;
+    border-bottom: 1px dotted #bbb;
+}
+.denree table tbody tr.headCategorieDenree td{
+    font-weight: 700;
+}
+
+.aligncenter {
+    text-align: center  !important;
+}
+.valigncenter {
+    vertical-align: middle !important;
+}
+.totalbas{
+    font-size: 2em;
+    font-weight: 700;
+    text-align: right  !important;
+}
+.strongme{
+    font-size: 1.6em;
+    font-weight: 700;
+}

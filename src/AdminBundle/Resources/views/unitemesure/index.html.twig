@@ -1,0 +1,53 @@
+{% extends "::admin.html.twig" %}
+{% block title %}Liste des unité de mesure{% endblock %}
+{% block breadcrumb %}<li><a href="{{ path('unitemesure_index') }}">Unité de mesure</a></li><li class="active">Gestion des Unité de mesure</li>{% endblock %}
+{% block body %}
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="datatable table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Auteur</th>
+                        <th>Nombre de denrées associées</th>
+                        <th>Groupe de mesure</th>
+                        <th>Calcul de référence</th>
+                        <th>Créer le</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for unitemesure in uniteMesures %}
+                    <tr id="{{ unitemesure.id }}">
+                        <td>{{ unitemesure.nom }}</td>
+                        <td>{{ unitemesure.description }}</td>
+                        <td>{{ unitemesure.auteur }}</td>
+                        <td>{{ unitemesure.denrees|length }}</td>
+                        <td>{{ unitemesure.groupe|capitalize}}</td>
+                        <td>1 {{ unitemesure.nom }} = {{ unitemesure.valeurReference }}{{ ref[unitemesure.groupe]}}</td>
+                        <td>{% if unitemesure.dateCreation %}{{ unitemesure.dateCreation|date('d/m/Y') }}{% endif %}</td>
+                        <td>
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="{{ path('unitemesure_edit', { 'id': unitemesure.id }) }}" role="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                                </li>
+                                <li>
+                                    <a data-href="{{ path('unitemesure_delete', { 'id': unitemesure.id }) }}" attr-id="{{unitemesure.id}}" role="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="fixed-action-btn" data-toggle="tooltip" data-placement="left" title="Ajouter une nouvelle unité de mesure">
+    <a href="{{ path('unitemesure_new') }}" role="button" class="btn btn-success pull-right pulse" ><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/admin/deleteUniteMesure.js') }}"></script>
+{% endblock %}

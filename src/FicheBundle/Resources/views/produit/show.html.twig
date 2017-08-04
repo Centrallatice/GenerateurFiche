@@ -1,0 +1,152 @@
+{% extends "::root.html.twig" %}
+{% block title %}{{ produit.titre }}{% endblock %}
+{% block stylesheets %}
+     {{parent()}}
+    <link rel="stylesheet" href="{{ asset('css/themes/produit.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/product_edit.css') }}">
+{% endblock %}
+{% block breadcrumb %}<li class="active">{{ produit.titre }}</li>{% endblock %}
+{% block body %}
+<input type="hidden" name="productIdRef" id="productIdRef" value="{{produit.id}}">
+    <div class="col-xs-12">
+            <div class="responsive-table">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td id="recette_nom">
+                                <h1>{{produit.titre}}</h1>
+                            </td>
+                            <td id="recette_auteur" class="valigncenter aligncenter"><h4>Auteur</h4>{{produit.auteur}}</td>
+                            <td id="recette_date" class="valigncenter aligncenter" title="Fiche modifiée le : {{produit.updatedAt|date('d/m/Y')}}">{{produit.dateCreation|date('d/m/Y')}}</td>
+                            <td id="recette_type" class="valigncenter aligncenter"><h4>Type de plat</h4>{{produit.categorieProduit.nom}}</td>
+                            <td id="recette_couverts" class="valigncenter aligncenter">
+                                <label for="choix_nombre_couverts">
+                                        Pour <input type="number"  name="choix_nombre_couverts" value="1" id="choix_nombre_couverts">
+                                        <small>couverts</small>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                                <td id="recette_descriptif" colspan="2"><h3>Descriptif :</h3> {{produit.description|raw}}</td>
+                                <td id="calculTemps" colspan="3" class="aligncenter valigncenter"><strong>Durée de fabrication totale : </strong><span></span></td>
+                        </tr>
+                        <tr>
+                                <td id="recette_apport" class="valigncenter">
+                                    <div id="calcul_apport_nutritionnel" title="En kilojoules par couvert, calcul basé sur les apports moyens des différentes denrées">
+                                        <span>{{produit.apportNutritionnelUnitaire}}</span> kJ 
+                                        <a class="iframe cboxElement" href="{{ path('aej')}}" title="Aide">
+                                            <span class="glyphicon glyphicon-ok"></span> 
+                                        </a>
+                                    </div>
+                                        <h3>Apport nutritionnel</h3> {{produit.descriptionApport|raw}}
+                                </td>
+                                <td id="recette_couts">
+                                    <div id="recette_cout_matiere" title="Coût total des matières"><div class="minigauche">Coût <abbr title="Hors Taxe">HT</abbr></div><div class="alignright gras"><span class="totaux prix" id="prix_total"></span>&nbsp;€</div></div>
+                                    <div id="recette_coefficient" class="marginbottom"><div class="minigauche">Coefficient</div><div class="alignright bas editable" id="coefficient" title="Double-cliquez pour changer la valeur...">{{produit.coefficient}}</div></div>
+                                    <div id="recette_prix" class="marginbottom"><div class="minigauche">Prix de vente par portion <abbr title="Hors Taxe">HT</abbr></div><div class="alignright gras bas"><span id="prix_portion"></span>&nbsp;€</div></div>
+                                </td>
+                                <td id="recette_photo" colspan="3" class="aligncenter valigncenter"><a class="thumbnail"><img src="{{ asset('img/products/'~produit.imageName ) }}" class="img img-responsive" alt="{{produit.titre}}" /></a></td>
+                        </tr>
+                        <tr>
+                            <td id="recette_techniques">
+                                <h3>Étapes et techniques</h3>
+                                {% for e in produit.etapes %}
+                                    <div class="etape" id="etape-{{e.id}}" data-attr-color="{{e.codeCouleur}}">
+                                        <div class="main-left">
+                                            <h4>{{e.ordre}} - <span>{{e.titre}}</span>-
+                                                <small title="Durée de production" ><span class="glyphicon glyphicon-grain"></span>
+                                                        {{e.dureeValeur}}  
+                                                    {% if e.dureeUnite == 's' %}seconde(s){% elseif e.dureeUnite == 'm' %}minute(s){%else%}heure(s){% endif %}  
+                                                    {% if e.dureeType == 'unitaire' %}par produit{%else%}peu importe la quantité{% endif %}  
+                                                </small>
+                                                <input type="hidden" class="hide detailDataTemps" value="{{e.dureeValeur}}" data-attr-unite="{{e.dureeUnite}}" data-attr-calculType="{{e.dureeType}}">
+                                            </h4>
+                                            {% for t in e.techniques  %}
+                                                <div class="technique" id="tech-{{t.id}}">
+                                                    <h5>
+                                                        {% if t.description|length > 0 %}
+                                                            <a class="collapsed {% if t.lienExterne!='' %} movieLink {% endif %}" {% if t.lienExterne!='' %} data-attr-movie="{{t.lienExterne}}" {% endif %} role="button" data-toggle="collapse" href="#collapse-{{t.id}}" aria-expanded="false" aria-controls="collapse-{{t.id}}" >
+                                                                {{t.titre}} 
+                                                                <span class="collapsedmoreless"></span>
+                                                                {% if t.lienExterne!='' %}
+                                                                    <span class="glyphicon glyphicon-facetime-video"></span>
+                                                                {% endif %}    
+                                                            </a>
+                                                        {% else %}
+                                                            <a class="{% if t.lienExterne!='' %} movieLink {% endif %}" {% if t.lienExterne!='' %} data-attr-movie="{{t.lienExterne}}" {% endif %} role="button">
+                                                                {{t.titre}} 
+                                                                {% if t.lienExterne!='' %}
+                                                                    <span class="glyphicon glyphicon-facetime-video"></span>
+                                                                {% endif %}    
+                                                            </a>
+                                                        {% endif %}
+                                                    </h5>
+                                                    {% if t.description|length > 0 %}<div id="collapse-{{t.id}}" class="collapse">{{t.description|raw}} </div>{% endif %}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </td>
+                            <td id="denrees" colspan="4"> 
+                                <h3>Denrées</h3> &#65279;
+                                <div class="denree">
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Nature</th>
+                                                <th>Unité</th>
+                                                <th class="center-align" id="refColspan" colspan="{{produit.etapes|length}}">Étape</th>
+                                                <th class="center-align" colspan="3">Valorisation</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                {% for e in produit.etapes %}
+                                                    <th class="center-align theadEtape" id="etapeDenree-{{e.id}}">{{e.ordre}}</th>
+                                                {% endfor %}
+                                                <th class="center-align" >Total</th>
+                                                <th class="center-align" ><abbr title="Prix Unitaire Hors Taxe">PUHT</abbr></th>
+                                                <th class="center-align" ><abbr title="Prix Total Hors Taxe">PTHT</abbr></th>
+                                            </tr>
+                                        </thead>        
+                                        <tbody>
+                                        </tbody>                 
+                                        <tfoot id="total">
+                                            {% set colspan = 2+produit.etapes|length %}
+                                            <tr>
+                                                <td colspan="{{colspan}}" rowspan="3" class="totalbas right-align valigncenter">Totaux</td>
+                                                <td>Total denrées</td>
+                                                <td colspan="2" id="totDenree" class="valigncenter strongme"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Assais. 2%</td>
+                                                <td colspan="2" id="assaiso" class="valigncenter strongme"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Coût matières total</td>
+                                                <td colspan="2" id="totMatiere" class="valigncenter strongme"></td>
+                                            </tr>
+                                        </tfoot>        
+                                    </table>        
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="recette_dressage" colspan="2" class="valigncenter" >
+                                <h3>Dressage</h3><p>{{produit.dressageType}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="fixed-action-btn" data-toggle="tooltip" data-placement="left" title="Modifier ce produit">
+            <a href="{{ path('produit_edit', { 'id': produit.id }) }}" role="button" style="color:white" class="btn btn-success pull-right pulse" ><span style="color:white" class="glyphicon glyphicon-edit"></span></a>
+        </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/showProduct.min.js') }}"></script>
+{% endblock %}

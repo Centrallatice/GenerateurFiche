@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    {{ form_label(form.etapeProduit) }}
+    {{ form_widget(form.etapeProduit) }}
+    {{ form_label(form.denreeProduit) }}
+    {{ form_widget(form.denreeProduit) }}
+    {{ form_label(form.quantite) }}<span id="moreInfoAddDenree"></span>
+    {{ form_widget(form.quantite) }}
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+        <button type="submit" id="btnValideAddEtape" class="btn btn-success">Enregister</button>
+    </div>
+{{ form_end(form) }}

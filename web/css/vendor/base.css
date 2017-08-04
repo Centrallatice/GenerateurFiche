@@ -1,0 +1,29 @@
+
+@keyframes blink-animation {
+  to {
+    opacity:0;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    opacity:0;
+  }
+}
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px)}
+  100% { -webkit-transform: perspective(120px)}
+}
+
+@keyframes sk-rotateplane {
+  0% { 
+    transform: perspective(120px);
+    -webkit-transform: perspective(120px) rotateY(0deg) 
+  } 50% { 
+    transform: perspective(120px) ;
+    -webkit-transform: perspective(120px) rotateY(180.1deg)
+  } 100% { 
+    transform: perspective(120px);
+    -webkit-transform: perspective(120px) rotateY(360deg);
+  }
+}

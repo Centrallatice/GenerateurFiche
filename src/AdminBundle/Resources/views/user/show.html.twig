@@ -1,0 +1,29 @@
+{% extends '::admin.html.twig' %}
+{% block breadcrumb %}<li><a href="{{ path('user_index') }}">Utilisateurs</a></li><li class="active">Détail  de l'utilisateur {{user.firstname}} {{user.lastname}}</li>{% endblock %}
+{% block title %} Détail de l'utilisateur {{user.firstname}} {{user.lastname}}{% endblock %}
+{% block body %}
+    <table class="table table-responsive">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Login</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ user.lastname }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

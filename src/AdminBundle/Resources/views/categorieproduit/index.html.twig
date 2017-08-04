@@ -1,0 +1,47 @@
+{% extends "::admin.html.twig" %}
+{% block title %}Liste des catégories de produits{% endblock %}
+{% block breadcrumb %}<li><a href="{{ path('produit_index') }}">Produits</a></li><li class="active">Liste des catégories de produits</li>{% endblock %}
+{% block body %}
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="datatable table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Auteur</th>
+                        <th>Catégorie parente</th>
+                        <th>Nombre de produits associés</th>
+                        <th>Créé le</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for categorieProduit in categorieProduits %}
+                    <tr id="{{categorieProduit.id}}">
+                        <td><a href="{{ path('categorie_produit_show', { 'id': categorieProduit.id }) }}">{{ categorieProduit.id }}</a></td>
+                        <td>{% for i in 0..categorieProduit.depth %}{% if i> 0 %}--{% endif %}{% endfor %} {{ categorieProduit.nom }}</td>
+                        <td>{{ categorieProduit.auteur }}</td>
+                        <td>{% if categorieProduit.categorieParente!=null%}{{categorieProduit.categorieParente.nom }}{% else %}-{% endif %}</td>
+                        <td>{{categorieProduit.produits |length }}</td>
+                        <td>{% if categorieProduit.dateCreation %}{{ categorieProduit.dateCreation|date('d/m/Y') }}{% endif %}</td>
+                        <td>
+                            <ul class="inline-list">
+                                <li>
+                                    <a href="{{ path('categorie_produit_show', { 'id': categorieProduit.id }) }}" role="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Afficher"><span class="glyphicon glyphicon-search"></span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('categorie_produit_edit', { 'id': categorieProduit.id }) }}" role="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="fixed-action-btn" data-toggle="tooltip" data-placement="left" title="Créer une nouvelle catégorie">
+    <a href="{{ path('categorie_produit_new') }}" role="button" class="btn btn-success pull-right pulse" ><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+{% endblock %}

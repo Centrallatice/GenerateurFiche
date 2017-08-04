@@ -1,0 +1,13 @@
+{% extends '::admin.html.twig' %}
+{% block breadcrumb %}<li><a href="{{ path('user_index') }}">Utilisateurs</a></li><li class="active">Modification de l'utilisateur {{user.firstname}} {{user.lastname}}</li>{% endblock %}
+
+{% block title %} Modification de l'utilisateur {{user.firstname}} {{user.lastname}}{% endblock %}
+{% block body %}
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <div class="col-xs-12 center-align">
+            <input type="submit" value="Enregistrer" class="btn btn-success"/>
+        </div>
+    {{ form_end(edit_form) }}
+
+{% endblock %}

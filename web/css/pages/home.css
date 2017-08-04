@@ -1,0 +1,34 @@
+.right-align{
+    text-align: right;
+}
+.catprod{
+    font-size: 11px;
+    color:#555;
+    padding-right: .5em;
+}
+h5{
+    color: #A60033;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+.details,.desc{
+    font-size: 11px;
+    color:#555;
+}
+.glyphicon-folder-open{
+    padding: 0 5px 0 0;
+}
+.item.fiche {
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #e5e1e1;
+    background-color: #f1efef;
+    display: inline-table;
+    margin: 0 0 .8em;
+    padding: .5em 6px 1em 7px;
+    vertical-align: top;
+}
+.findedString{
+    background-color:yellow;
+}

@@ -1,0 +1,28 @@
+{% extends "::admin.html.twig" %}
+{% block breadcrumb %}<li><a href="{{ path('denree_index') }}">Denreés</a></li><li class="active">Ajout d'une nouvelle denrée</li>{% endblock %}
+{% block title %}Ajout d'une nouvelle denrée{% endblock %}
+{% block body %}
+     <div class="col-xs-12">
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        
+        <div class="form-group">
+            {{ form_label(form.uniteMesure) }}
+            {{ form_widget(form.uniteMesure) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.pUHT) }}<span id="prixMoreInfo"></span>
+            {{ form_widget(form.pUHT) }}
+        </div>
+        {{ form_row(form.categorieDenree) }}
+        {{ form_row(form.code) }}
+        <div class="col-xs-12 text-center">
+            <input type="submit" value="Enregistrer" class="btn btn-success"/>
+        </div>
+        {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/admin/addDenree.js') }}"></script>
+{% endblock %}

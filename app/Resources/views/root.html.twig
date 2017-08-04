@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
+            <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700italic,700,400italic,300italic' rel='stylesheet' type='text/css'>
+            <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+            <!-- Optional theme -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/s/bs/jszip-2.5.0,pdfmake-0.1.18,dt-1.10.10,af-2.1.0,b-1.1.0,b-colvis-1.1.0,b-flash-1.1.0,b-html5-1.1.0,b-print-1.1.0,r-2.0.0,sc-1.4.0,se-1.1.0/datatables.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/select/1.1.2/css/select.dataTables.min.css') }}">
+
+            <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/vendor/animate.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/vendor/materiale.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/vendor/base.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/vendor/sheperd/shepherd-theme-arrows.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/themes/admin.css') }}">
+{#            <link href="../css/froala_style.min.css" rel="stylesheet" type="text/css" />#}
+            
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+                {% include "::menus/main.html.twig" %}
+                {% set breadcrumb = block('breadcrumb') %}
+                <ol class="breadcrumb">
+                    <li><a href="{{ path('fiche_default_index') }}">Accueil</a></li>
+                    {{breadcrumb|raw}}
+                </ol>
+        </header>
+        <main class="main nopadding">
+            <div class="container-fluid">
+                {% block body %}{% endblock %}
+            </div>
+        </main> 
+        {% block javascripts %}
+            <script>var basePageAdmin= '{{path('fiche_default_index')}}';</script>
+            <script>var basePage= '{{path('fiche_default_index')}}';</script>
+            <script>var routeEnCours = '{{app.request.get('_route')}}';</script>
+            <script src="{{ asset('js/vendor/jquery-3.1.1.min.js') }}"></script>
+            <script src="{{ asset('js/vendor/json2.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/vendor/datatables.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('https://cdn.datatables.net/select/1.1.2/js/dataTables.select.min.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js')}}"></script>
+
+            <script src="{{ asset('js/vendor/js.cookie.js') }}"></script>
+            <script src="{{ asset('js/vendor/bootbox.min.js') }}"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            
+            <script src="{{ asset('node_modules/moment/moment.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

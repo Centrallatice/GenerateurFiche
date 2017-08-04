@@ -1,0 +1,26 @@
+{{ form_start(edit_form) }}
+    {{ form_row(edit_form.titre) }}
+    {{ form_row(edit_form.description) }}
+    {{ form_row(edit_form.descriptionApport) }}
+    {{ form_row(edit_form.apportNutritionnelUnitaire) }}
+{#    {{ form_row(edit_form.coutHT) }}#}
+    {{ form_row(edit_form.coefficient) }}
+{#    {{ form_row(edit_form.pVUHT) }}#}
+    {{ form_row(edit_form.dressageType) }}
+    <div class="row">
+        <div class="col-xs-6">
+            {{ form_row(edit_form.imageName) }}
+        </div>
+        <div class="col-xs-6">
+                {% if imageName!=null %} 
+                    <a class="thumbnail">
+                        <img src="{{ asset('img/products/'~imageName ) }}" class="img img-responsive" alt="{{produit.titre}}" />
+                    </a>
+                    <center><a id="btnDeleteProduct" data-href="{{ path('image_produit_delete',{id:produit.id})}}" role="button" class="btn btn-danger">Supprimer</a></center>
+                {% endif %}
+        </div>
+    </div>
+    {{ form_row(edit_form.categorieProduit) }}
+
+    <input type="submit" value="Enregistrer" class="btn btn-success"/>
+{{ form_end(edit_form) }}

@@ -1,0 +1,127 @@
+/* Général */
+td { text-align: left; vertical-align : top; padding: 0.3em 0.5em;  }
+
+table h1{text-align: center;}
+table h1,table h3,table h4{margin-bottom:0;}
+h3,h4{font-weight: 600;}
+
+table ul {margin-left:2em; list-style: square;}
+
+img { border: none; }
+h2 a { color: #fff; text-decoration: none; }
+.br { clear: both; height: 0; width: 0; }
+.clear { clear: both;  }
+.help { float: right; margin-right: 0px; margin-top: 2px; }
+.help:hover { cursor: pointer; }
+.none { display: none; }
+.valigncenter { vertical-align: middle !important;}
+.aligncenter {  text-align: center;}
+.alignright {text-align:right;}
+.prix {text-align: right;}
+/*.quantite,.etape { text-align:center; }*/
+.gras{ font-weight: bold; }
+.right{float: right;}
+.left{float: left;}
+
+.form-search input[type=text]{width: 45%;margin-bottom: 10px;padding-left: 2%;padding-right: 2%;float: right;}
+
+.titre a{display: block;}
+
+/* Tableau de la recette */
+
+#recette {width: 100%;margin:1em auto;}
+#recette_nom{vertical-align: middle;width:60%}
+#recette #denrees {padding :0;margin:0;}
+.minigauche {width:65%;float:left;}
+.marginbottom{margin-bottom:1em;}
+.bas {margin-top:1em;}
+#recette #denrees h3 {padding :0.5em 1em 0 1em;margin:0;}
+
+#produits {width:100%;margin:0;border-bottom: 1px solid #bbb;}
+
+.produit td , .ligne_nature td {border-top:0px; border-bottom: 0px;}
+
+.ligne_nature {border-top:1px dotted #bbb;}
+
+.nature { font-style: italic;font-weight:bold;}
+.nom_produit{padding-left: 1em;}
+/* */
+#technique1:hover{background: #eecccc;}
+#technique2:hover{background: #cceecc;}
+#technique3:hover{background: #ccccee;}
+#technique4:hover{background: #eeeecc;}
+#technique5:hover{background: #eeccee;}
+.technique {padding: 0.5em 0.5em 0.5em 0.5em;}
+.technique div {padding: 0.2em 0;}
+#recette_couverts {width: 50px; }
+#recette_type {width: 95px;}
+.totaux {width: 49px; }
+#recette_totaux h3{margin-bottom: 0;}
+.unitaire, .quantite_produit {width: 40px;}
+
+
+#coefficient {margin-left:8em;}
+.texteditable{width:2em;}
+#choix_nombre_couverts{width:4em;display: inline;margin-bottom: 0;}
+#coefficient,#choix_nombre_couverts,.editable{color:#8F0000;}
+#recette_liens{width:100%;margin:1em auto; padding:.5em 0;border:1px solid #ccc;box-shadow: 0 1px 2px #d1d1d1;}
+#recette_liens h3{ padding:0.5em 0 0 1em; }
+#recette_liens #plus_loin{padding:0.5em 1em 1em 1em; }
+.editable input[type=button],.editable input[type=submit] { border:1px solid #bbb; color:#8F0000; }
+.editable{cursor: url('../../img/crayon.png'), auto;}
+
+ul.inline{font-size:1.1em;text-align: center;margin: 1em 0 2.5em 0;}
+ul.inline li{padding-left: .5em;}
+ul.inline li a{padding: .3em 1em;border-radius: 5px;}
+/* Liste des fiches */
+ul.liste-items{margin:1em 0;}
+ul.liste-items .logo_video img{width: 196px;max-height: 165px}
+.liste-items{list-style: none;}
+.item.fiche{clear: left;}
+.fiche-logo{float: left;margin: .5em 2em .5em 1em;}
+.fiche-titre{}
+.fiche-date{font-size: .8em;display: inline-block;vertical-align: top;}
+.fiche-auteur{font-size: .9em;display: inline-block;vertical-align: top;width: 40%;text-align: center;}
+.fiche-type{font-size: .9em;display: inline-block;vertical-align: top;}
+
+.page_plan #content li{padding: .3em 2em;}
+
+#calcul_apport_nutritionnel{float:right;width:80px;height:1em;padding:5px;margin-top:0px;}
+#calcul_apport_nutritionnel span{font-weight:bold;color:green;border-bottom:1px dotted green;}
+
+.technique_descriptif{display:none;font-size:0.85em;margin-left:0.5em;border-left:1px dotted #879DC1;}
+.technique div.technique_descriptif{padding-left:0.5em;}
+.bouton_technique_descriptif:hover{cursor:help;}
+.technique_descriptif ul,.technique_descriptif ul li {margin-left:0.3em;padding-left:0;list-style-position:inside; }
+
+#recette_descriptif h3{display: inline;}
+
+.page_aide_iframe,.page_apports_iframe{padding: 1em 3em;}
+
+/* Table Style */
+table {	border: 1px solid #ccc;box-shadow: 0 1px 2px #d1d1d1;}
+table td {border-top: 1px solid #e0e0e0;border-bottom:1px solid #e0e0e0;border-left: 1px solid #e0e0e0;}
+table table td {border-top: 1px solid #ffffff;border-bottom:1px solid #e0e0e0;}
+table table{border-left: none;border-right: none;}
+table tr:last-child td {border-bottom:0;}
+table tr:last-child{border:none;}
+
+@media print{
+    ul{list-style: none;}
+    body{font-size: .75em;}
+    h1{font-size: 1.2em;}
+    h2,h3,h4{font-size: 1em;}
+    #calcul_apport_nutritionnel{float: none;width:inherit;}
+    /* Feuille de style pour l'impression  */
+    body{background: #fff;}
+    #recette,#recette_liens{width: 100%;}
+    #header,#nav,#footer,ul.inline, #validator,#calcul_apport_nutritionnel a.iframe{display:none;}
+    #body,#recette{margin:0; padding:0;}
+    a {text-decoration:none;}
+    td ,#recette #denrees h3{ padding: 0.1em 0.2em;  }
+    .bouton_technique_descriptif{display:none;}
+}
+.puhtdenree{
+    color:red;
+    cursor: url(../../img/crayon.png), auto;
+}

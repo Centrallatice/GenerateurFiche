@@ -1,0 +1,45 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <h1>Etapeproduits list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Datecreation</th>
+                <th>Codecouleur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for etapeProduit in etapeProduits %}
+            <tr>
+                <td><a href="{{ path('etape_show', { 'id': etapeProduit.id }) }}">{{ etapeProduit.id }}</a></td>
+                <td>{{ etapeProduit.titre }}</td>
+                <td>{{ etapeProduit.auteur }}</td>
+                <td>{% if etapeProduit.dateCreation %}{{ etapeProduit.dateCreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ etapeProduit.codeCouleur }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('etape_show', { 'id': etapeProduit.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('etape_edit', { 'id': etapeProduit.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('etape_new') }}">Create a new etapeProduit</a>
+        </li>
+    </ul>
+{% endblock %}

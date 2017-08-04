@@ -1,0 +1,41 @@
+{% extends "::admin.html.twig" %}
+{% block breadcrumb %}<li><a href="{{ path('produit_index') }}">Produits</a></li><li class="active">Ajout d'un nouveau produit</li>{% endblock %}
+{% block title %} Ajout d'un nouveau produit {% endblock %}
+{% block body %}
+    
+            <div class="col-xs-12">
+                {{ form_start(form) }}
+                    <div class="col-xs-12">
+                        {{ form_row(form.titre) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(form.description) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(form.descriptionApport) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(form.apportNutritionnelUnitaire) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(form.coefficient) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(form.dressageType) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(form.categorieProduit) }}
+                    </div>
+                    <div class="col-xs-12">
+                        {{ form_row(form.imageName) }}
+                    </div>
+                    <div class="col-xs-12 text-center">
+                        <input type="submit" value="Enregistrer" class="btn btn-success"/>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/froala_editor.min.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "::root.html.twig" %}
+{% block title %}Liste des produits{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="content span12" id="content">
+                <h1>Qu'est-ce que l'AEJ ?</h1>
+                <p>L'Apport énergétique Journalier (AEJ) intègre la présence des sept catégories de nutriments : 
+                glucides, lipides, protides, sels minéraux, vitamines, eau et fibres</p>
+                <h2>Les valeurs recommandées : l'AEJR</h2>
+                <p>L'Apport énergétique Journalier Recommandé (AEJR) 
+                varie en fonction de l'âge, du sexe et de l'activité des individus. Soit environ :
+                </p><ul><li>Enfants : 5700 kJ</li>
+                <li>Adolescents : 10 400 (jeunes filles) à 12 100 kJ (garçons)</li>
+                <li>Femmes : 7 500 à 9 000 kJ suivant activité</li>
+                <li>Hommes : 8 800 à 12 500 kJ suivant activité</li>
+                </ul>
+                <p></p>
+                <h2>Bases de calculs de valeurs énergétiques</h2>
+                <p>Les
+                kilojoules sont indexés automatiquement à une mercuriale
+                régulièrement mise à jour. Les valeurs calculées sont arrondies pour plus de lisibilité.</p>
+                <h2>éléments de calculs paramétrables
+                par l'usager</h2>
+                <p>Tous
+                les nombres affichés en rouge (coefficient multiplicateur,
+                prix unitaires hors taxe et nombre de couverts) sont paramétrables.
+                Double cliquer sur chaque nombre, saisir sa propre valeur absolue et
+                valider (cliquer sur OK ou appuyer sur la touche  «&nbsp;Entrée&nbsp;»
+                de votre clavier) On peut donc comparer l'impact d'une substitution (huile d'olive par crème allégée) ou d'une omission (appliquer la valeur zéro).</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

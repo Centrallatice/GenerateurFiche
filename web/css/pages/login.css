@@ -1,0 +1,89 @@
+.logocontainer{
+    margin-top:10%;
+    border:1px solid #ebebeb;
+    border-radius: 10px;
+    font-family: 'Raleway', sans-serif;
+    padding: 0 20px 0 20px;
+    -moz-box-shadow: 3px 3px 5px 0px #9b9b9b;
+    -webkit-box-shadow: 3px 3px 5px 0px #9b9b9b;
+    -o-box-shadow: 3px 3px 5px 0px #9b9b9b;
+    box-shadow: 3px 3px 5px 0px #9b9b9b;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=135, Strength=5);
+    background: white;
+}
+.logocontainer .login-title{
+    font-size: 20px;
+    color:#b30000;
+    padding: 20px 0 0 0;
+}
+.logocontainer .login-box-body{
+    margin-top:0px;
+    margin-bottom:20px;
+    font-size: 14px;
+    padding: 15px 15px 0 15px;
+    background-size:cover;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+.actionName.reversed {
+    left: auto;
+    margin-left:-59px;
+    top: 10%;
+}
+.actionName:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: none;
+    border-bottom: 10px solid transparent;
+    border-right: 20px solid #d84141;
+}
+.actionName {
+    position: absolute;
+    top: 25px;
+    left: -18px;
+    z-index: 2;
+    min-width: 55px;
+    padding: 7px 10px;
+    background-color: #ac0d0d;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    text-indent: -0.1em;
+    color: #fff;
+    pointer-events: none;
+}
+.actionName.reversed:after {
+    right: 0;
+    left: auto;
+    bottom: -10px;
+    border: none;
+    border-top: 10px solid #d84141;
+    border-right: 20px solid transparent;
+}
+#mainStack2{
+    display: none;
+}
+@media screen and (min-width:993px){
+    
+}
+@media only screen and (min-width: 601px) and (max-width:992px){
+    
+}
+@media only screen and (max-width:600px){
+    .actionName.reversed {
+        display:none;
+    }
+    .logocontainer .login-box-body {
+        padding-top:0;
+    }
+    .logocontainer{
+        margin-top:0;
+        border:none;
+        box-shadow: none;
+    }
+}

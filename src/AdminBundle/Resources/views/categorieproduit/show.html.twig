@@ -1,0 +1,45 @@
+{% extends "::admin.html.twig" %}
+{% block breadcrumb %}
+    <li><a href="{{ path('produit_index') }}">Produits</a></li>
+    <li><a href="{{ path('categorie_produit_index')}}">Catégories</a></li>
+    <li class="active">{{ categorieProduit.nom }}</li>
+{% endblock %}
+
+{% block body %}
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ categorieProduit.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ categorieProduit.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Auteur</th>
+                        <td>{{ categorieProduit.auteur }}</td>
+                    </tr>
+                    <tr>
+                        <th>Créée le</th>
+                        <td>{% if categorieProduit.dateCreation %}{{ categorieProduit.dateCreation|date('d/m/Y') }}{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <ul class="inline-list pull-right">
+            <li>
+                <a role="button" class="btn btn-info" href="{{ path('categorie_produit_edit', { 'id': categorieProduit.id }) }}">Modifier</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
+                    <input type="submit" value="Supprimer" class="btn btn-danger">
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    </div>
+{% endblock %}

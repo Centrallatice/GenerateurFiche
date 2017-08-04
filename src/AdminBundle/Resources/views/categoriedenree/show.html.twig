@@ -1,0 +1,47 @@
+{% extends "::admin.html.twig" %}
+{% block breadcrumb %}
+    <li><a href="{{ path('denree_index') }}">Denrées</a></li>
+    <li><a href="{{ path('categorie_denree_index')}}">Catégories</a></li>
+    <li class="active">{{ categorieDenree.nom }}</li>
+{% endblock %}
+
+
+{% block body %}
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ categorieDenree.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ categorieDenree.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Auteur</th>
+                        <td>{{ categorieDenree.auteur }}</td>
+                    </tr>
+                    <tr>
+                        <th>Créée le</th>
+                        <td>{% if categorieDenree.dateCreation %}{{ categorieDenree.dateCreation|date('d/m/Y') }}{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <ul class="inline-list pull-right">
+            <li>
+                <a role="button" class="btn btn-info" href="{{ path('categorie_denree_edit', { 'id': categorieDenree.id }) }}">Modifier</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
+                    <input type="submit" value="Supprimer" class="btn btn-danger">
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+

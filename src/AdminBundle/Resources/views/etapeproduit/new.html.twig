@@ -1,0 +1,16 @@
+{{ form_start(form) }}
+    {{ form_label(form.titre) }}
+    {{ form_widget(form.titre) }}
+    {{ form_label(form.codeCouleur) }}
+    {{ form_widget(form.codeCouleur, { 'attr': {'class': 'jscolor'} }) }}
+    {{ form_label(form.dureeType) }}
+    {{ form_widget(form.dureeType) }}
+    {{ form_label(form.dureeUnite) }}
+    {{ form_widget(form.dureeUnite) }}
+    {{ form_label(form.dureeValeur) }}
+    {{ form_widget(form.dureeValeur) }}
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+        <button type="button" id="btnValideAddEtape" class="btn btn-success">Enregister</button>
+    </div>
+{{ form_end(form) }}

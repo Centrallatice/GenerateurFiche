@@ -1,0 +1,43 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <h1>Techniquesetapes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Lienexterne</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for techniquesEtape in techniquesEtapes %}
+            <tr>
+                <td><a href="{{ path('technique_show', { 'id': techniquesEtape.id }) }}">{{ techniquesEtape.id }}</a></td>
+                <td>{{ techniquesEtape.titre }}</td>
+                <td>{{ techniquesEtape.description }}</td>
+                <td>{{ techniquesEtape.lienExterne }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('technique_show', { 'id': techniquesEtape.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('technique_edit', { 'id': techniquesEtape.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('technique_new') }}">Create a new techniquesEtape</a>
+        </li>
+    </ul>
+{% endblock %}

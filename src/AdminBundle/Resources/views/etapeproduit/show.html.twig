@@ -1,0 +1,33 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+
+    <div class="col-xs-12">
+            <div class="responsive-table">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                <th>Id</th>
+                <td>{{ etapeProduit.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ etapeProduit.titre }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ etapeProduit.auteur }}</td>
+            </tr>
+            <tr>
+                <th>Datecreation</th>
+                <td>{% if etapeProduit.dateCreation %}{{ etapeProduit.dateCreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Codecouleur</th>
+                <td>{{ etapeProduit.codeCouleur }}</td>
+            </tr>
+        </tbody>
+    </table>
+            </div>
+            </div>
+{% endblock %}

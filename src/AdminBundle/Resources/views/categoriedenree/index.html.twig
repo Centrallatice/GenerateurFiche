@@ -1,0 +1,50 @@
+{% extends "::admin.html.twig" %}
+{% block title %}Liste des catégories de produits{% endblock %}
+{% block breadcrumb %}<li><a href="{{ path('denree_index') }}">Denrées</a></li><li class="active">Liste des catégories de denrées</li>{% endblock %}
+{% block body %}
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="datatable table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Auteur</th>
+                        <th>Créé le</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for categorieDenree in categorieDenrees %}
+                    <tr id="{{categorieDenree.id}}">
+                        <td><a href="{{ path('categorie_denree_show', { 'id': categorieDenree.id }) }}">{{ categorieDenree.id }}</a></td>
+                        <td>{{ categorieDenree.nom }}</td>
+                        <td>{{ categorieDenree.auteur }}</td>
+                        <td>{% if categorieDenree.dateCreation %}{{ categorieDenree.dateCreation|date('d/m/Y') }}{% endif %}</td>
+                        <td>
+                            <ul class="inline-list">
+                                <li>
+                                    <a href="{{ path('categorie_denree_show', { 'id': categorieDenree.id }) }}" role="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Afficher"><span class="glyphicon glyphicon-search"></span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('categorie_denree_edit', { 'id': categorieDenree.id }) }}" role="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                                </li>
+                                <li>
+                                    <a attr-id="{{categorieDenree.id}}" data-href="{{ path('categorie_denree_delete', { 'id': categorieDenree.id }) }}" role="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="fixed-action-btn" data-toggle="tooltip" data-placement="left" title="Créer une nouvelle catégorie">
+    <a href="{{ path('categorie_denree_new') }}" role="button" class="btn btn-success pull-right pulse" ><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/admin/indexCategorieDenree.js') }}"></script>
+{% endblock %}

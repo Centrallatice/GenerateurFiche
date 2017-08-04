@@ -1,0 +1,12 @@
+{% extends "::admin.html.twig" %}
+{% block breadcrumb %}<li><a href="{{ path('produit_index') }}">Produits</a></li><li><a href="{{ path('categorie_produit_index')}}">Catégories</a></li><li class="active">Ajout d'une nouvelle catégorie</li>{% endblock %}
+
+{% block body %}
+    <div class="col-xs-12">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" class="btn btn-large btn-success" value="Créer cette catégorie" />
+        {{ form_end(form) }}
+    </div>
+    
+{% endblock %}
