@@ -1,26 +1,58 @@
-{{ form_start(edit_form) }}
-    {{ form_row(edit_form.titre) }}
-    {{ form_row(edit_form.description) }}
-    {{ form_row(edit_form.descriptionApport) }}
-    {{ form_row(edit_form.apportNutritionnelUnitaire) }}
-{#    {{ form_row(edit_form.coutHT) }}#}
-    {{ form_row(edit_form.coefficient) }}
-{#    {{ form_row(edit_form.pVUHT) }}#}
-    {{ form_row(edit_form.dressageType) }}
-    <div class="row">
-        <div class="col-xs-6">
-            {{ form_row(edit_form.imageName) }}
-        </div>
-        <div class="col-xs-6">
-                {% if imageName!=null %} 
-                    <a class="thumbnail">
-                        <img src="{{ asset('img/products/'~imageName ) }}" class="img img-responsive" alt="{{produit.titre}}" />
-                    </a>
-                    <center><a id="btnDeleteProduct" data-href="{{ path('image_produit_delete',{id:produit.id})}}" role="button" class="btn btn-danger">Supprimer</a></center>
-                {% endif %}
-        </div>
-    </div>
-    {{ form_row(edit_form.categorieProduit) }}
 
-    <input type="submit" value="Enregistrer" class="btn btn-success"/>
-{{ form_end(edit_form) }}
+        <div class="col-xs-12">
+                {{ form_start(edit_form) }}
+                    {% for pL in edit_form.produitLang %}
+                        <div class="rowLang {% if loop.index>1 %}hide{% endif %}" id="{{pL.lang.vars.value}}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-12 colLang">
+                                            {{ form_row(pL.lang) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-xs-12">
+                                        {{ form_row(pL.titre) }}
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        {{ form_row(pL.description) }}
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        {{ form_row(pL.descriptionApport) }}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        {{ form_row(pL.dressageType) }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    {% endfor %}
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(edit_form.categorieProduit) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(edit_form.apportNutritionnelUnitaire) }}
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        {{ form_row(edit_form.coefficient) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            {{ form_row(edit_form.imageName) }}
+                        </div>
+                        <div class="col-xs-6">
+                                {% if imageName!=null %} 
+                                    <a class="thumbnail">
+                                        <img src="{{ asset('img/products/'~imageName ) }}" class="img img-responsive" alt="{{produit.titre}}" />
+                                    </a>
+                                    <center><a id="btnDeleteProduct" data-href="{{ path('image_produit_delete',{id:produit.id})}}" role="button" class="btn btn-danger">Supprimer</a></center>
+                                {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 text-center">
+                        <input type="submit" value="Enregistrer" class="btn btn-success"/>
+                    </div>
+                {{ form_end(edit_form) }}
+            </div>

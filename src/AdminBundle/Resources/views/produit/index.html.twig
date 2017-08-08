@@ -16,7 +16,7 @@
                 <tbody>
                 {% for produit in produits %}
                     <tr id="{{ produit.id }}">
-                        <td>{{ produit.titre }}</td>
+                        <td>{{ produit.produitLang[0].titre }}</td>
                         <td>{% if produit.dateCreation %}{{ produit.dateCreation|date('d/m/Y') }}{% endif %}</td>
                         <td style="width:120px">{% if produit.imageName != null %}<a class="thumbnail"><img src="{{ asset('img/products/'~produit.imageName ) }}" class="img img-responsive" alt="{{produit.titre}}" /></a>{% endif %}</td>
                         <td>

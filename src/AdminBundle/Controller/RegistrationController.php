@@ -42,7 +42,11 @@ class RegistrationController extends Controller
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-               
+            $d = $form->getData();
+            $role = $user->getRoles();
+//            var_dump($role[0][0]);
+//            exit;
+            $user->setRoles($role[0][0]);
             $passwordEncoder = $this->get('security.encoder_factory')->getEncoder($user);
             $password = $passwordEncoder->encodePassword($user->getPlainPassword(), $user->getSalt());
             $user->setPassword($password);

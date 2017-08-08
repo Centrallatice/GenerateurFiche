@@ -1,5 +1,10 @@
 $('document').ready(function(){
-   
+    $('.colLang select').on("change",function(){
+        $('.rowLang').addClass("hide");
+        $('.rowLang#'+$(this).val()).removeClass("hide");
+        $('.rowLang#1 .colLang select').val("1");
+        $('.rowLang#2 .colLang select').val("2");
+    });
     var url = document.location.href;
     var getDiese = url.split("#");
     if(getDiese.length>1){
@@ -93,39 +98,72 @@ $('document').ready(function(){
             url: lien,
             type: 'POST',
             dataType: 'JSON',
+            async:false,
             success: function(ret) {
-                $("#addStep .modal-body").html(ret);
-                var dialog = bootbox.dialog({
-                    message: $("#addStep .modal-body").html(),
-                    closeButton: false,
-                    size: 'large'
-                });
-                $('#addStep .modal-body select#catEtapeProduit').on("change",function(){
-                    getEtapeTypeByCat($(this).val());
-                 });
-                 $('#addStep .modal-body #etapeProduit').on("change",function(){
-                    getEtapeType($(this).val());
-                 });
-                $('#addStep .modal-body .jscolor').colorPicker();
-                $('#addStep #btnValideAddEtape').on("click",function(){
-                    var couleur = $('#adminbundle_etapeproduit_codeCouleur').val();
-                    var titre = $('#adminbundle_etapeproduit_titre').val();
-                    $.ajax({
-                        url: basePageAdmin+'etape/valide_new',
-                        type: 'POST',
-                        data: {
-                            t:titre,
-                            c:couleur,
-                            dT:$('#adminbundle_etapeproduit_dureeType').val(),
-                            dV:$('#adminbundle_etapeproduit_dureeValeur').val(),
-                            dU:$('#adminbundle_etapeproduit_dureeUnite').val(),
-                            idP:$('#productIdRef').val()},
-                        dataType: 'JSON',
-                        success: function(retour) {
-                            if(retour.success) window.location.reload();
-                            else bootbox.alert("<div class='alert alert-danger'>Une erreur est survenue <br /> Détail :"+retour.message+"</div>");
+                var myDialog = bootbox.dialog({
+                    message: ret,
+                    size: 'large',
+                    buttons: {
+                        cancel: {
+                            label: "Annuler!",
+                            className: 'btn-danger',
+                            callback: function(){
+                                
+                            }
+                        },
+                        ok: {
+                            label: "Enregistrer",
+                            className: 'btn-info',
+                            callback: function(){
+                                var couleur = $('#adminbundle_etapeproduit_codeCouleur').val();
+                                var produitLang = new Array();
+                                $('.bootbox .rowLang').each(function(){
+                                    produitLang[$(this).attr("id").substr(4)]={
+                                       lang:$(this).attr("id").substr(4), 
+                                       titre:$(this).find("#adminbundle_etapeproduit_EtapesProduitsLang_"+(parseInt($(this).attr("id").substr(4))-1)+"_titre").val(),
+                                       contenu:$(this).find("#adminbundle_etapeproduit_EtapesProduitsLang_"+(parseInt($(this).attr("id").substr(4))-1)+"_contenu").froalaEditor('html.get')
+                                    };
+                                });
+                                
+                                
+                                
+                                $.ajax({
+                                    url: basePageAdmin+'etape/valide_new',
+                                    type: 'POST',
+                                    data: {
+                                        pLang:produitLang,
+                                        c:couleur,
+                                        dT:$('#adminbundle_etapeproduit_dureeType').val(),
+                                        dV:$('#adminbundle_etapeproduit_dureeValeur').val(),
+                                        dU:$('#adminbundle_etapeproduit_dureeUnite').val(),
+                                        idP:$('#productIdRef').val()},
+                                    dataType: 'JSON',
+                                    success: function(retour) {
+                                        if(retour.success) window.location.reload();
+                                        else bootbox.alert("<div class='alert alert-danger'>Une erreur est survenue <br /> Détail :"+retour.message+"</div>");
+                                    }
+                                });
+                            }
                         }
-                    });
+                    }
+                });
+                myDialog.init(function(){
+                    setTimeout(function(){
+                        $('.bootbox select#catEtapeProduit').on("change",function(){
+                            getEtapeTypeByCat($(this).val());
+                        });
+                        $('.bootbox #etapeProduit').on("change",function(){
+                            getEtapeType($(this).val());
+                        });
+                        $('.bootbox .jscolor').colorPicker();
+                        $('.bootbox textarea').froalaEditor({height: 200});
+                        $('.bootbox form[name=adminbundle_etapeproduit] .colLang select').on("change",function(){
+                            $('.bootbox form[name=adminbundle_etapeproduit] .rowLang').addClass("hide");
+                            $('.bootbox form[name=adminbundle_etapeproduit] .rowLang#lang'+$(this).val()).removeClass("hide");
+                            $('.bootbox form[name=adminbundle_etapeproduit] .rowLang#lang1 .colLang select').val("1");
+                            $('.bootbox form[name=adminbundle_etapeproduit] .rowLang#lang2 .colLang select').val("2");
+                        });
+                     }, 1000);
                 });
             }
         });
@@ -541,7 +579,6 @@ function dateHMS(time) {
 }
 
 function getEtapeTypeByCat(cat){
-    console.log("test");
     $('#etapeProduit option[value!=-1]').remove();
     $.ajax({
         url:  basePageAdmin+'etapetype/getByCat',
@@ -550,8 +587,10 @@ function getEtapeTypeByCat(cat){
         data:{id:cat},
         success: function(json) {
             if(json.success==1) {
+                for(var e in json.data){
+                    $('<option value="'+json.data[e]['id']+'">'+json.data[e]['titre']+'</option>').appendTo("#etapeProduit");
+                }
                 
-
             } else {
                 bootbox.alert("<div class='alert alert-danger'>Une erreur est survenue</div>");
             }
@@ -559,4 +598,20 @@ function getEtapeTypeByCat(cat){
     });
 }
 function getEtapeType(idEtape){
+    $.ajax({
+        url:  basePageAdmin+'etapetype/get',
+        type: 'POST',
+        dataType: 'JSON',
+        data:{id:idEtape},
+        success: function(json) {
+            if(json.success) {
+                for(var e in json.data){
+                    $('form[name=adminbundle_etapeproduit] .rowLang#lang'+e+" #adminbundle_etapeproduit_EtapesProduitsLang_"+(parseInt(e)-1)+"_titre").val(json.data[e].titre);
+                    $('form[name=adminbundle_etapeproduit] .rowLang#lang'+e+" #adminbundle_etapeproduit_EtapesProduitsLang_"+(parseInt(e)-1)+"_contenu").froalaEditor('html.set', json.data[e].contenu);
+                }
+            } else {
+                bootbox.alert("<div class='alert alert-danger'>Une erreur est survenue</div>");
+            }
+        }
+    });
 }

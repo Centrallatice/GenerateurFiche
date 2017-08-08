@@ -12,6 +12,13 @@
 .blocCout .input-group{
     margin-top:25px;
 }
+.flag a img{
+    width: 32px;
+    height: 21px;
+}
+.flag a{
+    padding:15px 5px !important;
+}
 main.main{
     padding-bottom: 150px;
 }

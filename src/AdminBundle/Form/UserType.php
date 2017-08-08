@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserType extends AbstractType
 {
@@ -20,6 +21,15 @@ class UserType extends AbstractType
             ->add('username', TextType::class,array("label"=>"Login"))
             ->add('firstname', TextType::class,array("label"=>"Prénom"))
             ->add('lastname', TextType::class,array("label"=>"Nom"))
+            ->add('roles', ChoiceType::class,array(
+                "label"=>"Role",
+                "choices"=>array(
+                    "ROLE_ADMINISTRATEUR"=>"ROLE_ADMINISTRATEUR",
+                    "ROLE_CREATEUR"=>"ROLE_CREATEUR",
+                    "ROLE_LECTEUR"=>"ROLE_LECTEUR"
+                    ),
+                'multiple' => true
+            ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Password'),

@@ -11,6 +11,8 @@ use AdminBundle\Entity\EtapeTypeLang;
 use AdminBundle\Form\EtapeTypeType;
 use AdminBundle\Entity\Logs;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use AdminBundle\Entity\CategorieEtapeType;
+
 /**
  * Etapetype controller.
  *
@@ -60,7 +62,7 @@ class EtapeTypeController extends Controller
             
             $L = new Logs();
             $L->setAuteur($user->getFirstname()." ".$user->getLastname());
-            $L->setEntity("UniteMesure");
+            $L->setEntity("EtapeType");
             $L->setTypeAction("Creation");
             $langues = $etapeType->getEtapesTypesLang();
             foreach($langues as $l):
@@ -116,9 +118,30 @@ class EtapeTypeController extends Controller
             )); 
             $etapes = array();
             foreach($etapesTypes as $et):
-                array_push($etapes,array("id"=>$et->getId(),"titre"=>$et->etapesTypesLang()[0]->getTitre()));
+                array_push($etapes,array("id"=>$et->getId(),"titre"=>$et->getEtapesTypesLang()[0]->getTitre()));
             endforeach;
             return new JsonResponse(array("success"=>true,"data"=>$etapes));
+        } catch(\Doctrine\ORM\ORMException $e){
+            return new JsonResponse(array("success"=>false,"message"=>$e->getMessage()));
+        } catch(\Exception $e){
+            return new JsonResponse(array("success"=>false,"message"=>$e->getMessage()));
+        }
+    }
+    /**
+     * @Route("/get", name="etapetype_get")
+     */
+    public function getAction(Request $request)
+    {
+        try{
+            $em = $this->getDoctrine()->getManager();
+            $datas = $request->request->all();
+            $etape = $em->getRepository(EtapeType::class)->find($datas['id']); 
+                    
+            $arrayEtape = array();
+            foreach($etape->getEtapesTypesLang() as $e):
+                $arrayEtape[$e->getLang()->getId()]=array("titre"=>$e->getTitre(),"contenu"=>$e->getContenu());
+            endforeach;
+            return new JsonResponse(array("success"=>true,"data"=>$arrayEtape));
         } catch(\Doctrine\ORM\ORMException $e){
             return new JsonResponse(array("success"=>false,"message"=>$e->getMessage()));
         } catch(\Exception $e){

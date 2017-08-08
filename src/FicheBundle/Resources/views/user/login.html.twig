@@ -1,22 +1,22 @@
-{% extends "::admin.html.twig" %}
+{% extends "::root.html.twig" %}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/pages/login.css') }}">
 {% endblock %}
 {% block bodyclass %}hold-transition login-page{% endblock %}
 {% block body %}
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED")==false %}
+{#    {% if is_granted("IS_AUTHENTICATED_REMEMBERED")==false %}#}
         <div class="container">
             <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-2 animated fadeIn logocontainer" id="mainStack1">
                 <div class="login-title col-xs-12">
-                    Bienvenue sur l'administration du générateur de fiche
+                    Bienvenue sur le générateur de fiche
                 </div>
                 <div class="row">
                     <span class="actionName reversed animated bounceInDown">Connexion</span>
                         <div class="col-xs-12 col-sm-6 login-box-body">
-                            <form action="{{ path("login_admin_check", {}) }}" method="POST" >
+                            <form action="{{ path("login_check", {}) }}" method="POST" >
                                 <div class="form-group">
-                                    <label for="username" class='active'>Email  :</label>
+                                    <label for="username" class='active'>Identifiant  :</label>
                                     <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"  required="required"/>
                                 </div>
                                 <div class="form-group">
@@ -55,6 +55,6 @@
                     </div>
             </div>
         </div>
-    {% endif %}
+{#    {% endif %}#}
   
 {% endblock body %}

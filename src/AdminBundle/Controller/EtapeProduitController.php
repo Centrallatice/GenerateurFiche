@@ -13,7 +13,8 @@ use AdminBundle\Entity\EtapeDenree;
 use AdminBundle\Entity\Logs;
 use AdminBundle\Entity\CategorieEtapeType;
 use AdminBundle\Entity\EtapeType;
-
+use AdminBundle\Entity\EtapeProduitLang;
+use AdminBundle\Entity\Lang;
 /**
  * Etapeproduit controller.
  *
@@ -49,11 +50,20 @@ class EtapeProduitController extends Controller
         $etapeProduit = new Etapeproduit();
         $user = $this->getUser();
         $etapeProduit->setAuteur($user->getFirstname()." ".$user->getLastname());
+        $em = $this->getDoctrine()->getManager();
+        $Langues = $em->getRepository('AdminBundle:Lang')->findAll();
+        foreach($Langues as $L):
+            $etapeProduitLang = new \AdminBundle\Entity\EtapeProduitLang();
+            $etapeProduitLang->setLang($L);
+            $etapeProduit->addEtapesProduitsLang($etapeProduitLang);
+        endforeach;
+            
+        
         $form = $this->createForm('AdminBundle\Form\EtapeProduitType', $etapeProduit);
         
-        $em = $this->getDoctrine()->getManager();
-           
-            
+        
+        
+        
         $categorieEtapeTypes = $em->getRepository(CategorieEtapeType::class)->findAll();
         if(count($categorieEtapeTypes)>0):
             $etapesTypes = $em->getRepository(EtapeType::class)->findBy(array(
@@ -169,7 +179,7 @@ class EtapeProduitController extends Controller
             $uName = $this->getParameter($user->getUsername());
             $etapeProduit->setAuteur($uName['name']);
             
-            $etapeProduit->setTitre($data['t']);
+//            $etapeProduit->setTitre($data['t']);
             $etapeProduit->setCodeCouleur($data['c']);
             $etapeProduit->setOrdre(count($produits)+1);
             
@@ -183,6 +193,25 @@ class EtapeProduitController extends Controller
             endif;
             $etapeProduit->setProduit($P);
             $em->persist($etapeProduit);
+            
+            foreach($data['pLang'] as $k=>$v):
+                if($k!=''):
+                    $EtapeProduitLang = new EtapeProduitLang();
+                    $EtapeProduitLang->setTitre($data['pLang'][$k]['titre']);
+                    $EtapeProduitLang->setContenu($data['pLang'][$k]['contenu']);
+                    $L = $em->getRepository(Lang::class)->find($k);
+                    if($L==null):
+                        return new JsonResponse(array("success"=>false,"message"=>"Langue de référence introuvrable"));
+                    endif;
+                    $EtapeProduitLang->setLang($L);
+                    $EtapeProduitLang->setEtapesProduit($etapeProduit);
+                    $etapeProduit->addEtapesProduitsLang($EtapeProduitLang);
+                endif;
+            endforeach;
+            
+            $em->persist($etapeProduit);
+            
+            
             $em->flush();
             return new JsonResponse(array("success"=>true,"message"=>null));
         } catch(\Doctrine\ORM\ORMException $e){

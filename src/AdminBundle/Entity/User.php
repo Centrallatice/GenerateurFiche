@@ -37,12 +37,25 @@ class User implements UserInterface
     
     /**
      * @ORM\Column(type="string", length=255, unique=false)
+     * @Assert\NotBlank()
+     */
+    private $roles;
+    
+    /**
+     * @ORM\Column(type="string", length=255, unique=false)
      */
     private $firstname;
+    
     /**
      * @ORM\Column(type="string", length=255, unique=false)
      */
     private $lastname;
+    
+    /**
+     * @ORM\Column(type="string", length=255, unique=false)
+     */
+    private $lang;
+    
 
     /**
      * @Assert\NotBlank()
@@ -99,9 +112,11 @@ class User implements UserInterface
     {
         $this->password = $password;
     }
+    
     public function getRoles(){
-        return array('ROLE_ADMINISTRATEUR');
+        return array($this->roles);
     }
+    
     public function getSalt()
     {
         // The bcrypt algorithm doesn't require a separate salt.
@@ -110,6 +125,11 @@ class User implements UserInterface
     }
     public function eraseCredentials()
     {
+    }
+    
+    public function __construct()
+    {
+        $this->lang="fr";
     }
 
     /** @see \Serializable::serialize() */
@@ -193,5 +213,44 @@ class User implements UserInterface
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+
+    /**
+     * Set roles
+     *
+     * @param string $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    
+        return $this;
+    }
+
+    /**
+     * Set lang
+     *
+     * @param string $lang
+     *
+     * @return User
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+    
+        return $this;
+    }
+
+    /**
+     * Get lang
+     *
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->lang;
     }
 }

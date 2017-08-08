@@ -34,7 +34,7 @@
                                 <td id="recette_apport" class="valigncenter">
                                     <div id="calcul_apport_nutritionnel" title="En kilojoules par couvert, calcul basé sur les apports moyens des différentes denrées">
                                         <span>{{produit.apportNutritionnelUnitaire}}</span> kJ 
-                                        <a class="iframe cboxElement" href="{{ path('aej')}}" title="Aide">
+                                        <a class="iframe cboxElement" href="{{ path('aej',{lang:app.user.lang})}}" title="Aide">
                                             <span class="glyphicon glyphicon-ok"></span> 
                                         </a>
                                     </div>

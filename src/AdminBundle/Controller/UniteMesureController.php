@@ -81,7 +81,6 @@ class UniteMesureController extends Controller
             $L->setTypeAction("Creation");
             $langues = $uniteMesure->getUniteMesureLang();
             foreach($langues as $l):
-                $l->setUniteMesure($uniteMesure);
                 if($l->getLang()->getNom()=="fr"):
                     $L->setIdEntityText($l->getNom());
                 endif;

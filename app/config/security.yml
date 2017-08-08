@@ -14,22 +14,32 @@ security:
         ROLE_ADMINISTRATEUR: 
             - ROLE_USER
             - ROLE_ALLOWED_TO_SWITCH
+            - ROLE_CREATEUR
+        ROLE_CREATEUR: 
+            - ROLE_USER
+            - ROLE_LECTEUR
+        ROLE_LECTEUR: 
+            - ROLE_USER
     firewalls:
         created:
             provider: created
-            pattern: ^/admin/
+            pattern: ^/
             form_login:
-                login_path: login_admin
-                check_path: login_admin_check
-                default_target_path: /admin/
-                always_use_default_target_path: false
+                login_path: login
+                check_path: login_check
+                default_target_path: /checkRedirect
+                always_use_default_target_path: true
             logout:
-                path: /admin/logout
-                target: /admin/login
+                path: /logout
+                target: /login
             anonymous:    true
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/retrieve_by_mail$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/logout, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMINISTRATEUR }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/checkRedirect$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/home/, role: ROLE_LECTEUR }
+        - { path: ^/admin/, role: ROLE_CREATEUR }
+        - { path: ^/admin/denrees/, role: ROLE_ADMINISTRATEUR }
+        - { path: ^/admin/unitemesure/, role: ROLE_ADMINISTRATEUR }
+        - { path: ^/admin/user/, role: ROLE_ADMINISTRATEUR }
+        - { path: ^/admin/logs/, role: ROLE_ADMINISTRATEUR }

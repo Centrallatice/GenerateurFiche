@@ -22,7 +22,7 @@ class UniteMesureLang
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Lang", inversedBy="uniteMesureLang")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Lang")
      * @ORM\JoinColumn(name="lang_id", referencedColumnName="id",nullable=true)
     */
     private $lang;

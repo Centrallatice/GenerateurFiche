@@ -31,7 +31,7 @@ class Denree
    /**
      * Many Users have Many Groups.
      * @ORM\ManyToMany(targetEntity="UniteMesure", inversedBy="denrees")
-     * @ORM\JoinTable(name="denree_mesure")
+     * @ORM\JoinTable(name="gf_denree_mesure")
      */
     private $uniteMesures;
 

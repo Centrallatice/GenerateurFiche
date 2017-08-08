@@ -9,6 +9,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use KMS\FroalaEditorBundle\Form\Type\FroalaEditorType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use AdminBundle\Form\EtapeProduitLangType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 class EtapeProduitType extends AbstractType
 {
     /**
@@ -17,15 +21,20 @@ class EtapeProduitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('titre')
-                ->add('codeCouleur')
-                ->add('description',FroalaEditorType::class)
+//                ->add('titre',TextType::class)
+                ->add('codeCouleur',TextType::class)
+//                ->add('description',TextareaType::class)
                 ->add('dureeType',ChoiceType::class,array(
                     "label"=>"Méthode de calcul de la durée de fabrication",
                     "choices"=>array(
                         "Indivisible selon la quantité (Temps)"=>"indivisible",
                         "Unitaire selon la quantité (Qtt * Temps unitaire)"=>"unitaire"
                     )
+                ))
+                ->add('EtapesProduitsLang',CollectionType::class,array(
+                    'label' => false,
+                    'entry_type' => EtapeProduitLangType::class,
+                    'allow_add' => false
                 ))
                 ->add('dureeUnite',ChoiceType::class,array(
                     "label"=>"Unité de durée",

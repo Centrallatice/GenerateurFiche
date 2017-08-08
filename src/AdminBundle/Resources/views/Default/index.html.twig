@@ -1,8 +1,29 @@
 {% extends "::admin.html.twig" %}
 {% block stylesheets %}
     {{ parent() }}
-{#    <link rel="stylesheet" href="{{ asset('css/pages/login.css') }}">#}
+    <link rel="stylesheet" href="{{ asset('css/pages/home.css') }}">
 {% endblock %}
 {% block body %}
     
+    <div class="container-fluid">
+    <div class="row">
+        {% if fiches|length>0 %}
+            {% for f in fiches %}
+                {{dump(f.produitLang)}}
+                {#<div class="col-xs-12 col-sm-6 col-md-3 item fiche ">
+                    {% if f.imageName!=null %}<a class="thumbnail"><img src="{{ asset('img/products/'~f.imageName ) }}" class="img img-responsive" alt="{{f.titre}}" /></a>{% endif %}
+                    <h5 class="center-align"><a href="{{ path('produit_show', { 'id': f.id }) }}">{{f.produitLang.0.titre}}</a></h5>
+                    <p class="right-align catprod"><a href="{{ path('fiche_default_index' , {idCat:f.categorieProduit.id}) }}"><span class="glyphicon glyphicon-folder-open"></span> {{f.categorieProduit.nom}}</a></p>
+                    <p class="details"><span class="glyphicon glyphicon glyphicon-calendar"></span> {{f.dateCreation|date('d/m/Y')}}</a></p>
+                    <p class="details"><span class="glyphicon glyphicon glyphicon-user"></span> {{f.auteur}}</a></p>
+                    <div class="desc">{{f.description|slice(0,250)|raw}}</div>
+                </div>#}
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-danger text-center">
+                {{ 'il n\'y a actuellement aucun produit dans cette catégorie'|trans }}
+            </div>
+        {% endif %}
+    </div>
+    </div>
 {% endblock %}

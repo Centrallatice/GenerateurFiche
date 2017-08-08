@@ -5,8 +5,12 @@ admin:
 
 fiche:
     resource: "@FicheBundle/Controller/"
+    defaults:
+        _locale: fr
     type:     annotation
     prefix:   /
+    requirements:
+        _locale: en|fr
     
 kms_froala_editor:
     resource: "@KMSFroalaEditorBundle/Resources/config/routing.yml"

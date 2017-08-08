@@ -13,25 +13,36 @@
             <option value="{{e.id}}">{{e.etapesTypesLang.0.titre}}</option>
         {% endfor %}
     </select>
-    {{dump(etapesTypes)}}
+    <br />
+    {% for eP in form.EtapesProduitsLang %}
+        <div class="rowLang {% if loop.index>1 %}hide{% endif %}" id="lang{{eP.lang.vars.value}}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 colLang">
+                            {{ form_row(eP.lang) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-xs-12">
+                        {{ form_row(eP.titre) }}
+                    </div>
+                    <div class="col-xs-12">
+                        {{ form_row(eP.contenu) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <br />
+    {{ form_label(form.codeCouleur) }}
+    {{ form_widget(form.codeCouleur, { 'attr': {'class': 'jscolor'} }) }}
+    {{ form_label(form.dureeType) }}
+    {{ form_widget(form.dureeType) }}
+    {{ form_label(form.dureeUnite) }}
+    {{ form_widget(form.dureeUnite) }}
+    {{ form_label(form.dureeValeur) }}
+    {{ form_widget(form.dureeValeur) }}
     
-    
-    <div class="hide">
-        {{ form_label(form.description) }}
-        {{ form_widget(form.description) }}
-        {{ form_label(form.titre) }}
-        {{ form_widget(form.titre) }}
-        {{ form_label(form.codeCouleur) }}
-        {{ form_widget(form.codeCouleur, { 'attr': {'class': 'jscolor'} }) }}
-        {{ form_label(form.dureeType) }}
-        {{ form_widget(form.dureeType) }}
-        {{ form_label(form.dureeUnite) }}
-        {{ form_widget(form.dureeUnite) }}
-        {{ form_label(form.dureeValeur) }}
-        {{ form_widget(form.dureeValeur) }}
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-        <button type="button" id="btnValideAddEtape" class="btn btn-success">Enregister</button>
-    </div>
 {{ form_end(form) }}

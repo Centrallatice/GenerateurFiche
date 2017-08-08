@@ -19,7 +19,7 @@ class EtapeTypeLangType extends AbstractType
         $builder->add('titre')->add('contenu',  TextareaType::class)->add('lang',EntityType::class,array(
                     "label"=>"Langue",
                     "class"=>Lang::class,
-                    "choice_label" => 'nom',
+                    "choice_label" => 'description',
                 ));
     }
     

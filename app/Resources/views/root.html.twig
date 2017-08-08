@@ -28,22 +28,24 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} 
         <header>
                 {% include "::menus/main.html.twig" %}
                 {% set breadcrumb = block('breadcrumb') %}
                 <ol class="breadcrumb">
-                    <li><a href="{{ path('fiche_default_index') }}">Accueil</a></li>
+                    <li><a href="{{ path('fiche_default_index',{_locale:locale}) }}">Accueil</a></li>
                     {{breadcrumb|raw}}
                 </ol>
         </header>
+        {% endif %}        
         <main class="main nopadding">
             <div class="container-fluid">
                 {% block body %}{% endblock %}
             </div>
         </main> 
         {% block javascripts %}
-            <script>var basePageAdmin= '{{path('fiche_default_index')}}';</script>
-            <script>var basePage= '{{path('fiche_default_index')}}';</script>
+            <script>var basePageAdmin= '{{path('fiche_default_index')}}/fr/';</script>
+            <script>var basePage= '{{path('fiche_default_index')}}/fr/';</script>
             <script>var routeEnCours = '{{app.request.get('_route')}}';</script>
             <script src="{{ asset('js/vendor/jquery-3.1.1.min.js') }}"></script>
             <script src="{{ asset('js/vendor/json2.js') }}"></script>

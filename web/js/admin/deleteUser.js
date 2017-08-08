@@ -5,7 +5,7 @@ $('document').ready(function(){
     } );
 });
 function init(){
-    $('.btn-danger').on("click",function(){
+    $('.btn-danger.btn-delete').on("click",function(){
         var lien = $(this).attr("data-href");
         var idDel = $(this).attr("attr-id");
         if(bootbox.confirm({

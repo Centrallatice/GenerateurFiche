@@ -92,6 +92,10 @@ class EtapeProduit
      */
     private $dureeUnite;
     
+    /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\EtapeProduitLang", mappedBy="etapesProduit",cascade={"persist"}, fetch="EAGER")
+     */
+    private $etapesProduitsLang;
     
     public function __construct() {
         $this->setDateCreation(new \DateTime());
@@ -364,5 +368,29 @@ class EtapeProduit
     public function getDureeUnite()
     {
         return $this->dureeUnite;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return EtapeProduit
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

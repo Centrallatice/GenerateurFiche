@@ -5,23 +5,18 @@ namespace AdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AdminBundle\Entity\Lang;
 
-class UniteMesureLangType extends AbstractType
+class EtapeProduitLangType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-                ->add('nom',TextType::class,array("label"=>"Abbréviation"))
-                ->add('description')
-                ->add('equivalence',NumberType::class,array("scale"=>4,"attr"=>array("size"=>3)))
-                ->add('lang',EntityType::class,array(
+        $builder->add('titre')->add('contenu',TextareaType::class)->add('lang',EntityType::class,array(
                     "label"=>"Langue",
                     "class"=>Lang::class,
                     "choice_label" => 'description',
@@ -34,7 +29,7 @@ class UniteMesureLangType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AdminBundle\Entity\UniteMesureLang'
+            'data_class' => 'AdminBundle\Entity\EtapeProduitLang'
         ));
     }
 
@@ -43,7 +38,7 @@ class UniteMesureLangType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'adminbundle_unitemesurelang';
+        return 'adminbundle_etapeproduitlang';
     }
 
 

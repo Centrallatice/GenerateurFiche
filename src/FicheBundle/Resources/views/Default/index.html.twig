@@ -6,15 +6,21 @@
 {% block title %}Liste des produits{% endblock %}
 {% block body %}
         <div class="row">
-            {% for f in fiches %}
-                <div class="col-xs-12 col-sm-6 col-md-3 item fiche ">
-                    <a class="thumbnail"><img src="{{ asset('img/products/'~f.imageName ) }}" class="img img-responsive" alt="{{f.titre}}" /></a>
-                    <h5 class="center-align"><a href="{{ path('produit_show', { 'id': f.id }) }}">{{f.titre}}</a></h5>
-                    <p class="right-align catprod"><a href="{{ path('fiche_default_index' , {idCat:f.categorieProduit.id}) }}"><span class="glyphicon glyphicon-folder-open"></span> {{f.categorieProduit.nom}}</a></p>
-                    <p class="details"><span class="glyphicon glyphicon glyphicon-calendar"></span> {{f.dateCreation|date('d/m/Y')}}</a></p>
-                    <p class="details"><span class="glyphicon glyphicon glyphicon-user"></span> {{f.auteur}}</a></p>
-                    <div class="desc">{{f.description|slice(0,250)|raw}}</div>
+            {% if fiches|length>0 %}
+                {% for f in fiches %}
+                    <div class="col-xs-12 col-sm-6 col-md-3 item fiche ">
+                        {% if f.imageName!=null %}<a class="thumbnail"><img src="{{ asset('img/products/'~f.imageName ) }}" class="img img-responsive" alt="{{f.titre}}" /></a>{% endif %}
+                        <h5 class="center-align"><a href="{{ path('produit_show', { 'id': f.id }) }}">{{f.titre}}</a></h5>
+                        <p class="right-align catprod"><a href="{{ path('fiche_default_index' , {idCat:f.categorieProduit.id}) }}"><span class="glyphicon glyphicon-folder-open"></span> {{f.categorieProduit.nom}}</a></p>
+                        <p class="details"><span class="glyphicon glyphicon glyphicon-calendar"></span> {{f.dateCreation|date('d/m/Y')}}</a></p>
+                        <p class="details"><span class="glyphicon glyphicon glyphicon-user"></span> {{f.auteur}}</a></p>
+                        <div class="desc">{{f.description|slice(0,250)|raw}}</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-danger text-center">
+                    {{ 'il n\'y a actuellement aucun produit dans cette catégorie'|trans }}
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
 {% endblock %}

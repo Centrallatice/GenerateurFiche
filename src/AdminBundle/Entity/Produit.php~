@@ -23,27 +23,11 @@ class Produit
      */
     private $id;
 
-    
     /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\CategorieProduit", inversedBy="produits")
      * @ORM\JoinColumn(name="categorieProduit", referencedColumnName="id",nullable=true)
     */
     protected $categorieProduit;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255)
-     */
-    private $titre;
-
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
 
     /**
      * @var string
@@ -66,12 +50,6 @@ class Produit
      */
     private $apportNutritionnelUnitaire;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="descriptionApport", type="text", nullable=true)
-     */
-    private $descriptionApport;
     
     /**
      * @var float
@@ -80,12 +58,6 @@ class Produit
      */
     private $coefficient;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="dressageType", type="string", length=255, nullable=true)
-     */
-    private $dressageType;
 
     /**
      * @var string
@@ -108,66 +80,24 @@ class Produit
     */
     private $etapes;
     
+    /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ProduitLang", mappedBy="produit",cascade={"persist"}, fetch="EAGER")
+     */
+    private $produitLang;
+    
+    
     public function __construct() {
         $this->setDateCreation(new \DateTime());
     }
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-   
-    /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return Produit
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Produit
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**
@@ -180,7 +110,7 @@ class Produit
     public function setAuteur($auteur)
     {
         $this->auteur = $auteur;
-
+    
         return $this;
     }
 
@@ -204,7 +134,7 @@ class Produit
     public function setDateCreation($dateCreation)
     {
         $this->dateCreation = $dateCreation;
-
+    
         return $this;
     }
 
@@ -228,7 +158,7 @@ class Produit
     public function setApportNutritionnelUnitaire($apportNutritionnelUnitaire)
     {
         $this->apportNutritionnelUnitaire = $apportNutritionnelUnitaire;
-
+    
         return $this;
     }
 
@@ -242,7 +172,6 @@ class Produit
         return $this->apportNutritionnelUnitaire;
     }
 
-   
     /**
      * Set coefficient
      *
@@ -253,7 +182,7 @@ class Produit
     public function setCoefficient($coefficient)
     {
         $this->coefficient = $coefficient;
-
+    
         return $this;
     }
 
@@ -267,33 +196,8 @@ class Produit
         return $this->coefficient;
     }
 
-
     /**
-     * Set dressageType
-     *
-     * @param string $dressageType
-     *
-     * @return Produit
-     */
-    public function setDressageType($dressageType)
-    {
-        $this->dressageType = $dressageType;
-
-        return $this;
-    }
-
-    /**
-     * Get dressageType
-     *
-     * @return string
-     */
-    public function getDressageType()
-    {
-        return $this->dressageType;
-    }
-
-    /**
-     * Set photo
+     * Set imageName
      *
      * @param string $imageName
      *
@@ -302,12 +206,12 @@ class Produit
     public function setImageName($imageName)
     {
         $this->imageName = $imageName;
-
+    
         return $this;
     }
 
     /**
-     * Get photo
+     * Get imageName
      *
      * @return string
      */
@@ -315,31 +219,6 @@ class Produit
     {
         return $this->imageName;
     }
-
-    /**
-     * Set categorieProduit
-     *
-     * @param \AdminBundle\Entity\CategorieProduit $categorieProduit
-     *
-     * @return Produit
-     */
-    public function setCategorieProduit(\AdminBundle\Entity\CategorieProduit $categorieProduit = null)
-    {
-        $this->categorieProduit = $categorieProduit;
-
-        return $this;
-    }
-    
-    /**
-     * Get categorieProduit
-     *
-     * @return \AdminBundle\Entity\CategorieProduit
-     */
-    public function getCategorieProduit()
-    {
-        return $this->categorieProduit;
-    }
-    
 
     /**
      * Set updatedAt
@@ -351,7 +230,7 @@ class Produit
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-
+    
         return $this;
     }
 
@@ -366,30 +245,6 @@ class Produit
     }
 
     /**
-     * Set descriptionApport
-     *
-     * @param string $descriptionApport
-     *
-     * @return Produit
-     */
-    public function setDescriptionApport($descriptionApport)
-    {
-        $this->descriptionApport = $descriptionApport;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptionApport
-     *
-     * @return string
-     */
-    public function getDescriptionApport()
-    {
-        return $this->descriptionApport;
-    }
-
-    /**
      * Add etape
      *
      * @param \AdminBundle\Entity\EtapeProduit $etape
@@ -399,7 +254,7 @@ class Produit
     public function addEtape(\AdminBundle\Entity\EtapeProduit $etape)
     {
         $this->etapes[] = $etape;
-
+    
         return $this;
     }
 
@@ -421,5 +276,63 @@ class Produit
     public function getEtapes()
     {
         return $this->etapes;
+    }
+
+    /**
+     * Add produitLang
+     *
+     * @param \AdminBundle\Entity\ProduitLang $produitLang
+     *
+     * @return Produit
+     */
+    public function addProduitLang(\AdminBundle\Entity\ProduitLang $produitLang)
+    {
+        $this->produitLang[] = $produitLang;
+    
+        return $this;
+    }
+
+    /**
+     * Remove produitLang
+     *
+     * @param \AdminBundle\Entity\ProduitLang $produitLang
+     */
+    public function removeProduitLang(\AdminBundle\Entity\ProduitLang $produitLang)
+    {
+        $this->produitLang->removeElement($produitLang);
+    }
+
+    /**
+     * Get produitLang
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduitLang()
+    {
+        return $this->produitLang;
+    }
+
+    /**
+     * Set categorieProduit
+     *
+     * @param \AdminBundle\Entity\CategorieProduit $categorieProduit
+     *
+     * @return Produit
+     */
+    public function setCategorieProduit(\AdminBundle\Entity\CategorieProduit $categorieProduit = null)
+    {
+        $this->categorieProduit = $categorieProduit;
+    
+        return $this;
+    }
+
+    /**
+     * Get categorieProduit
+     *
+     * @return \AdminBundle\Entity\CategorieProduit
+     */
+    public function getCategorieProduit()
+    {
+        return $this->categorieProduit;
     }
 }

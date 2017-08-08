@@ -11,7 +11,7 @@
         {% for e in produit.etapes %}
             <div class="etape" id="etape-{{e.id}}">
                 <div class="main-left">
-                    <h4>{{e.ordre}} - <span>{{e.titre}}</span> -
+                    <h4>{{e.ordre}} - <span>{{e.etapesProduitsLang[0].titre}}</span> -
                         <small title="Durée de production" ><span class="glyphicon glyphicon-grain"></span>
                                 {{e.dureeValeur}}  
                             {% if e.dureeUnite == 's' %}seconde(s){% elseif e.dureeUnite == 'm' %}minute(s){%else%}heure(s){% endif %}  
@@ -19,7 +19,7 @@
                         </small>
                         <input type="hidden" class="hide detailDataTemps" value="{{e.dureeValeur}}" data-attr-unite="{{e.dureeUnite}}" data-attr-calculType="{{e.dureeType}}">
                     </h4>
-                    {% for t in e.techniques  %}
+                    {#{% for t in e.techniques  %}
                         <div class="technique" id="tech-{{t.id}}">
                             <h5>
                                 {% if t.description|length > 0 %}
@@ -41,7 +41,7 @@
                             </h5>
                             {% if t.description|length > 0 %}<div id="collapse-{{t.id}}" class="collapse">{{t.description|raw}} </div>{% endif %}
                         </div>
-                    {% endfor %}
+                    {% endfor %}#}
                     <div class="notech addtech" data-attr-id="{{e.id}}" data-href="{{ path('technique_new') }}">
                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span><br />
                         Ajouter une technique

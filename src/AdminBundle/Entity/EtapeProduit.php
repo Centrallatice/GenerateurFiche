@@ -21,12 +21,7 @@ class EtapeProduit
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255)
-     */
-    private $titre;
+   
     
     /**
      * @var integer
@@ -63,9 +58,6 @@ class EtapeProduit
      */
     private $codeCouleur;
 
-    
-    
-
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\EtapeDenree",mappedBy="etape", cascade={"remove"})
      */
@@ -92,6 +84,10 @@ class EtapeProduit
      */
     private $dureeUnite;
     
+    /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\EtapeProduitLang", mappedBy="etapesProduit",cascade={"persist"}, fetch="EAGER")
+     */
+    private $etapesProduitsLang;
     
     public function __construct() {
         $this->setDateCreation(new \DateTime());
@@ -105,30 +101,6 @@ class EtapeProduit
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return EtapeProduit
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
     }
 
     /**
@@ -388,5 +360,39 @@ class EtapeProduit
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Add etapesProduitsLang
+     *
+     * @param \AdminBundle\Entity\EtapeProduitLang $etapesProduitsLang
+     *
+     * @return EtapeProduit
+     */
+    public function addEtapesProduitsLang(\AdminBundle\Entity\EtapeProduitLang $etapesProduitsLang)
+    {
+        $this->etapesProduitsLang[] = $etapesProduitsLang;
+    
+        return $this;
+    }
+
+    /**
+     * Remove etapesProduitsLang
+     *
+     * @param \AdminBundle\Entity\EtapeProduitLang $etapesProduitsLang
+     */
+    public function removeEtapesProduitsLang(\AdminBundle\Entity\EtapeProduitLang $etapesProduitsLang)
+    {
+        $this->etapesProduitsLang->removeElement($etapesProduitsLang);
+    }
+
+    /**
+     * Get etapesProduitsLang
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEtapesProduitsLang()
+    {
+        return $this->etapesProduitsLang;
     }
 }

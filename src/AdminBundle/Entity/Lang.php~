@@ -128,13 +128,7 @@ class Lang
     {
         return $this->description;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->uniteMesureLang = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    
 
     
 }

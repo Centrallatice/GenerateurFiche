@@ -5,27 +5,30 @@ namespace AdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use AdminBundle\Entity\CategorieProduit;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use AdminBundle\Entity\Lang;
+use KMS\FroalaEditorBundle\Form\Type\FroalaEditorType;
 
-class UniteMesureLangType extends AbstractType
+class ProduitLangType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-                ->add('nom',TextType::class,array("label"=>"Abbréviation"))
-                ->add('description')
-                ->add('equivalence',NumberType::class,array("scale"=>4,"attr"=>array("size"=>3)))
+        $builder->add('titre')
+                ->add('description',FroalaEditorType::class)
+                ->add('descriptionApport',FroalaEditorType::class,array("label"=>"Texte descriptif de l'apport nutritionnel"))
+                ->add('dressageType',TextType::class,array("label"=>"Dressage"))
                 ->add('lang',EntityType::class,array(
                     "label"=>"Langue",
                     "class"=>Lang::class,
                     "choice_label" => 'description',
                 ));
+
     }
     
     /**
@@ -34,7 +37,7 @@ class UniteMesureLangType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AdminBundle\Entity\UniteMesureLang'
+            'data_class' => 'AdminBundle\Entity\ProduitLang'
         ));
     }
 
@@ -43,7 +46,7 @@ class UniteMesureLangType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'adminbundle_unitemesurelang';
+        return 'adminbundle_produitlang';
     }
 
 

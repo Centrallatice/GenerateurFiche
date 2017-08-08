@@ -11,17 +11,17 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="{{ path('fiche_default_index')}}"><span class="glyphicon glyphicon-home"></span></a></li>
+        <li><a href="{{ path('fiche_default_index',{_locale:app.user.lang})}}"><span class="glyphicon glyphicon-home"></span></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Types de plat <span class="caret"></span></a>
           <ul class="dropdown-menu">
               {% for c in categorieProduits %}
-                  <li><a href="{{ path('fiche_default_index' , {idCat:c.id}) }}">{{c.nom|capitalize}}</a></li>
+                  <li><a href="{{ path('fiche_default_index' , {idCat:c.id,lang:app.user.lang}) }}">{{c.nom|capitalize}}</a></li>
               {% endfor %}
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" type="POST" name="searchForm" action="{{ path('search')}}">
+      <form class="navbar-form navbar-left" type="POST" name="searchForm" action="{{ path('search',{_locale:app.user.lang})}}">
           <div class="input-group">
             <input type="text" class="form-control" name="searched" placeholder="Rechercher">
             <span class="input-group-btn">
@@ -30,12 +30,23 @@
           </div>
       </form>
       <ul class="nav navbar-nav navbar-right">
-          <li><a href="{{ path('admin_default_index')}}"><span class="glyphicon glyphicon-lock"></span> Administration</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aides et informations <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="{{ path('aej') }}">Informations sur l'AEJ</a></li>
-            </ul>
+          {% if is_granted("ROLE_CREATEUR") %}<li><a href="{{ path('admin_default_index')}}"><span class="glyphicon glyphicon-lock"></span> Administration</a></li>{% endif %}
+            <li class="flag"><a href="{{  path('fiche_default_index',{_locale:'fr'}) }}"><img src="{{asset('img/flag/fr.png')}}"></a></li>
+            <li class="flag"><a href="{{  path('fiche_default_index',{_locale:'en'}) }}"><img src="{{asset('img/flag/en.png')}}"></a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aides et informations <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('aej',{lang:app.user.lang}) }}">Informations sur l'AEJ</a></li>
+                </ul>
+            </li>
+            <li>
+              <form class="navbar-form navbar-left">
+                  <div class="input-group">
+                    <a role="button" href="{{ path('logout') }}" class="btn btn-danger" data-toggle="tooltip" data-placement="left"  title="Déconnexion">
+                        <span class="whiteme glyphicon glyphicon-log-out"></span>
+                    </a>
+                </div>
+              </form>
           </li>
       </ul>
     </div>

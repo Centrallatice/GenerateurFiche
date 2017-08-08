@@ -37,6 +37,15 @@
                         {{breadcrumb|raw}}
                     </ol>
             </header>
+        {% elseif is_granted("ROLE_CREATEUR") %}
+            <header>
+                    {% include "::menus/createur.html.twig" %}
+                    {% set breadcrumb = block('breadcrumb') %}
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('admin_default_index') }}">Accueil</a></li>
+                        {{breadcrumb|raw}}
+                    </ol>
+            </header>
         {% endif %}
         <main class="main{% if is_granted("IS_AUTHENTICATED_REMEMBERED")==false %} nopadding{% endif %}">
             <div class="container-fluid">
@@ -54,7 +63,7 @@
         {% endif %}
         {% block javascripts %}
             <script>var basePageAdmin= '{{path('admin_default_index')}}';</script>
-            <script>var basePage= '{{path('fiche_default_index')}}';</script>
+            <script>var basePage= '{{path('fiche_default_index')}}/fr/';</script>
             <script>var routeEnCours = '{{app.request.get('_route')}}';</script>
             <script src="{{ asset('js/vendor/jquery-3.1.1.min.js') }}"></script>
             <script src="{{ asset('js/vendor/json2.js') }}"></script>
